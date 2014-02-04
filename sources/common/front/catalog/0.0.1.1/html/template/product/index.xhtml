@@ -1,0 +1,54 @@
+<script src="/media/js/lightbox.js"></script>
+<link href="/media/css/lightbox.css" rel="stylesheet" />
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+
+<form method="post">
+<div class="product-view inner">
+    <div class="image">
+        <a tal:attributes="href image" rel="lightbox[roadtrip]" >
+            <img tal:condition="php: image !=''"  tal:attributes="src image" id="image" style="width: 265px; left: 0px; top: 0px;"/>
+            <img tal:condition="php: image ==''"  src="/media/images/no-product-image.jpg" id="image" style="width: 265px; left: 0px; top: 0px;"/>
+        </a>
+    </div>
+    <div class="product-details">
+        <h1>${title}</h1>
+        <div class="add-cart">
+            <input type="number" size="5" min="1"  style="width: 4.5em !important"  value="1" name="qty"/>
+            <input class="btn" title="Add to Cart" type="button" value="Заказать"
+                   onclick="var term = $('.add-cart').find('input[name=\'qty\']').val();$.post('${baseUrl}/cart/index/add/id/${id}/ajax/1', { qty: term }, function() {
+          $('#cart').load('${baseUrl}/cart/index/view/ajax/1');
+}); return false;"/>
+        </div>
+        <div href = "${baseUrl}/stock/index/index/id/${id}/ajax/1"></div>
+        <div href="${baseUrl}/review/rating/index/id/${id}/ajax/1">
+        </div>
+        <p >Price: <span class="price">${price} грн.</span></p>
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Описание</a></li>
+                <li><a href="#tabs-2">Proin dolor</a></li>
+                <li><a href="#tabs-3">Aenean lacinia</a></li>
+            </ul>
+            <div id="tabs-1">
+                <p>${description}</p>
+            </div>
+            <div id="tabs-2">
+                <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+            </div>
+            <div id="tabs-3">
+                <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+                <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</form>

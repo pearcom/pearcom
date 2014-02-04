@@ -1,0 +1,28 @@
+<div id="attribute" class="container" style="float: left">
+    <a class="btn btn-default" href="javascript:history.back();">Back</a>
+<form id='submit' method="post"  role="form">
+    <div class="form-group">
+        <input class="btn btn-success" type='submit' value="Save"></input>
+    </div>
+    <div class="form-group">
+     <label >Attribute name:</label>
+     <input class="form-control" type="text" name ="name" tal:attributes="value name" ></input>
+    </div>
+    <div  class="form-group" style="float: left">
+        <label >Attribute type:</label>
+        <select class="form-control"  name="type"  tal:attributes="disabled php:type != null">
+
+            <option tal:attributes="selected php:type == 'int'" value="int">Integer</option>
+            <option tal:attributes="selected php:type == 'string'" value="string">String</option>
+            <option tal:attributes="selected php:type == 'decimal'" value="decimal">Decimal</option>
+            <option tal:attributes="selected php:type == 'text' " value="text">Text</option>
+        </select>
+    </div> <br></br>
+    <div class="form-group">
+        <label >Attribute title:</label>
+        <input class="form-control" type="text" id="title" name ="title" tal:attributes="value title" ></input>
+    </div>
+
+</form>
+</div>
+

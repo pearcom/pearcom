@@ -1,0 +1,38 @@
+<script type="text/javascript" src="/media/js/jquery.sha256.js"></script>
+<div id="add_record" class="container">
+<a class="btn btn-default" type="button" style="float: right" href="javascript:history.back();">Back</a>
+
+<form id='submit' method="post" role="form" onsubmit='if($("#password").val()!=""){$("#password").val($.sha256($("#password").val()));}return;'>
+    <div class="form-group">
+        <input  class="btn btn-success" type='submit' value="Save"></input>
+    </div>
+    <div class="form-group">
+     <label> Last edited </label>
+     <input class="form-control" type="text" name ="username" 	readonly="readonly" tal:attributes="value updated_at" ></input>
+    </div>
+    <div class="form-group">
+        <label>Username</label>
+        <input class="form-control" type="text" name ="username" tal:attributes="value username" ></input>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input class="form-control" type="password" id="password" name ="password" tal:attributes="value password" ></input>
+    </div>
+    <div class="form-group" tal:repeat = "item user">
+        <label tal:content="item/title">Place</label>
+        <input class="form-control" tal:condition ="not: item/options"  value="${item/value}" tal:attributes="name item/name; type item/type" ></input>
+        <select class="form-control" tal:condition="item/options" tal:attributes="name item/name">
+            <tal:block tal:condition="item/options" tal:repeat="c item/options" tal:define="selectedValue item/value">
+                <option value="${c/value}"
+                        tal:define="optionValue c/value"
+                        tal:attributes="selected php:optionValue == selectedValue" >
+                    ${c/title}
+                </option>
+            </tal:block>
+
+        </select>
+    </div><br></br>
+
+</form>
+</div>
+

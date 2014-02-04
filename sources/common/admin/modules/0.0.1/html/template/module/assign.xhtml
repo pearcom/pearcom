@@ -1,0 +1,22 @@
+<div id="add_record" class="container">
+    <form id='submit' method="post" role="form">
+        <div>
+            <input class="btn btn-success" type="submit" value="Submit"/>
+        </div>
+        <table class="table table-hover tablesorter">
+        <tr>
+            <td>Select</td>
+            <td> Id </td>
+            <td>Name</td>
+            <td>Email</td>
+        </tr>
+        <tr tal:repeat = "item users">
+            <td><input type = "checkbox" name="user" tal:attributes ="checked item/checked; value item/id" /></td>
+            <td tal:content="item/id"></td>
+            <td tal:content="item/username"></td>
+            <td tal:content="item/email"></td>
+        </tr>
+        </table>
+    </form>
+</div>
+

@@ -1,0 +1,36 @@
+<div class="container">
+    <form   tal:condition = "not: query" role="search" class="navbar-form navbar-right" autocomplete="on" method="get" action = "${baseUrl}/catalog/search/index" >
+        <div class="form-group">
+            <input  type="text"  title="Search..." class="form-control" tabindex="1" placeholder="Search" name="q" autocomplete="off"/>
+        </div>
+            <button type="submit" class="btn btn-default">Search</button>
+
+    </form>
+
+    <p tal:condition = "query">Результаты поиска:</p><p tal:condition = "query" tal:content="query">Query body</p>
+    <div class="products">
+        <div tal:repeat="list products">
+            <div class="product">
+                <div class="img-box">
+                    <a class="product-image" tal:attributes="title list/title; href list/href" tal:define="image list/image">
+                        <img tal:condition="php: image !=''" alt="${list/title}" height="135" tal:attributes="src image; alt list/title" width="135" />
+                        <img tal:condition="php: image ==''" alt="${list/title}" height="135" src="media/images/no-product-image.jpg" width="135" />
+                    </a>
+                    <div style="text-align: center; margin: 5px">
+                        <input class="btn" title="Заказать" type="button" value="Заказать"
+                               onclick="$.post('${baseUrl}/cart/index/add/id/${list/id}/qty/1/ajax/1', null, function() {
+          $('#cart').load('${baseUrl}/cart/index/view/ajax/1');
+}); return false;"/>
+                    </div>
+                </div>
+                <div class="pr-entry">
+                    <h4>${list/title}</h4>
+                    <div phptal:cache="25m per list/id" href="${baseUrl}/review/rating/index/id/${list/id}/ajax/1">&nbsp;</div>
+                    <span class="pr-number">${list/id}</span>
+                    <p>${list/description}</p>
+                    <span class="pr-price"><span>$</span>${list/price}<sup>.99</sup></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

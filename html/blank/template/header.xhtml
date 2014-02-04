@@ -1,0 +1,37 @@
+<div class="container">
+<nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+        <button data-target=".navbar-ex1-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="${baseUrl}/" class="navbar-brand">Store name</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li class="first"><a href="${baseUrl}/"  title="Home"><span>Home</span></a></li>
+        <li><a href="${baseUrl}/page/index/index" title="News"><span>News</span></a></li>
+        <li><a href="${baseUrl}/catalog" title="Products"><span>Catalog</span></a></li>
+        <li><a href="#" title="Accessories"><span>Accessories</span></a></li>
+        <li><a href="#" title="Contacts"><span>Contacts</span></a></li>
+    </ul>
+        <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown-toggle"><div href="${baseUrl}/cart/index/view/ajax/1"></div></li>
+            <li tal:condition="not: logged"><a href="${baseUrl}/user/index/login">Login</a></li>
+            <li tal:condition="logged" class="dropdown user-dropdown">
+
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><div href="${baseUrl}/user/index/index/ajax/1">&nbsp;</div></a>
+                <ul class="dropdown-menu">
+                    <li><a href="${baseUrl}/user/account/index"><i class="fa fa-user"></i> Profile</a></li>
+                    <li><a href="${baseUrl}/user/mail/index"><i class="fa fa-envelope"></i> Inbox </a></li>
+                    <li class="divider"></li>
+
+                    <li><a href="${baseUrl}/user/index/logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+
+                </ul>
+            </li>
+        </ul>
+</nav>
+</div>
+

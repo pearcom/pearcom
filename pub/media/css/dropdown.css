@@ -1,0 +1,67 @@
+
+ul.topnav {
+    list-style: none;
+    padding: 0 20px;
+    margin: 0;
+    float: left;
+    width: 920px;
+    background: rgba(3, 7, 5, 0.78);
+    font-size: 1.2em;
+  /*  background: #14312b url(../images/topnav_bg.gif) repeat-x;*/
+    background-image: -moz-linear-gradient(center top , #696969 0%, #363636 95%, #313131 97%, #252525 100%);
+}
+ul.topnav li {
+    float: left;
+    margin: 0;
+    padding: 0 15px 0 0;
+    position: relative; /*--Declare X and Y axis base for sub navigation--*/
+}
+ul.topnav li a{
+    padding: 10px 5px;
+    color: #71C5EF;
+    display: block;
+    text-decoration: none;
+    float: left;
+}
+ul.topnav li a:hover{
+    background-image: -moz-linear-gradient(center top , #86868c 0%, #494949 95%, #484848 97%, #3e3e3e 100%);
+}
+ul.topnav li span { /*--Drop down trigger styles--*/
+    width: 17px;
+    height: 35px;
+    float: left;
+    background:  url(../images/../images/ui/subnav_btn.gif) no-repeat center;/* top;*/
+}
+ul.topnav li span.subhover {
+    padding-top: 1;
+    background-position: center;
+    cursor: pointer;} /*--Hover effect for trigger--*/
+ul.topnav li ul.subnav {
+    list-style: none;
+    position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
+    left: 0; top: 35px;
+    background-image: -moz-linear-gradient(center top , #696969 0%, #363636 95%, #313131 97%, #252525 100%);
+    margin: 0; padding: 0;
+    display: none;
+    float: left;
+    width: 170px;
+    border: 1px solid #1e3c32;
+}
+ul.topnav li ul.subnav li{
+    margin: 0; padding: 0;
+    border-top: 1px solid #363636; /*--Create bevel effect--*/
+    border-bottom: 1px solid #363636; /*--Create bevel effect--*/
+    clear: both;
+    width: 170px;
+}
+html ul.topnav li ul.subnav li a {
+    float: left;
+    width: 145px;
+    background-image: -moz-linear-gradient(center top , #696969 0%, #363636 95%, #313131 97%, #252525 100%);
+    padding-left: 20px;
+    background: rgba(3, 7, 5, 0.78);
+
+}
+html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
+    background-image: -moz-linear-gradient(center top , #86868c 0%, #494949 95%, #484848 97%, #3e3e3e 100%);
+}

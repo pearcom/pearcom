@@ -1,0 +1,73 @@
+<div phptal:cache="25m">
+<div href="${baseUrl}/catalog/index/category/id/1/ajax/1"></div>
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row carousel-holder">
+
+                <div class="col-md-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+
+                        <div class="carousel-inner" >
+                            <tal:block  tal:repeat="list categories">
+                            <div  tal:condition = "repeat/list/start" class="item active">
+                                <a tal:attributes="title list/title; href list/href" tal:define="image list/image">
+                                <img class="slide-image" alt="${list/title}" style="height:300px;width: 100%" tal:attributes="src list/image; alt list/title" />
+                                </a> </div>
+
+                                <div tal:condition = "not: repeat/list/start" class="item">
+                                    <a tal:attributes="title list/title; href list/href" tal:define="image list/image">
+                                        <img class="slide-image" alt="${list/title}" style="height:300px;width: 100%" tal:attributes="src list/image; alt list/title" />
+                                    </a> </div>
+
+                              </tal:block>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" style="position: absolute" href="#carousel-example-generic" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row row text-center">
+
+                <div class="col-lg-3 col-md-6 hero-feature" tal:repeat="list products">
+                    <div class="thumbnail">
+                        <a href="${list/href}" >
+                        <img tal:attributes="src list/image; alt list/title" style="height: 200px;width: 320px"/>
+                        </a>
+                        <div class="caption">
+                            <h4 class="pull-right">$ ${list/price}</h4>
+                            <h4><a href="${list/href}" >${list/title}</a></h4>
+                            <p>${list/description} </p>
+                            <p>
+                                <a class="btn btn-primary" onclick="$.post('${baseUrl}/cart/index/add/id/${list/id}/qty/1/ajax/1', null, function() {
+          $('#cart').load('${baseUrl}/cart/index/view/ajax/1');
+return false;}); return false;">Buy Now!</a>
+                                <a class="btn btn-default" href="${list/href}">More Info</a>
+                            </p>
+                        </div>
+                        <div class="ratings">
+                            <p>
+                                <div phptal:cache="25m per list/id" href="${baseUrl}/review/rating/index/id/${list/id}/ajax/1">&nbsp;</div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

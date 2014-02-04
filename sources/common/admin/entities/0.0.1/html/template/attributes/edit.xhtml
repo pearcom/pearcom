@@ -1,0 +1,66 @@
+
+<div id="attribute" class="container" style="float: left">
+
+<form id='submit' method="post" role="form">
+    <div class="form-group">
+        <input class="btn btn-success" type='submit' value="Save"></input>
+    </div>
+    <div class="form-group">
+     <label style="width: 120">Attribute name:</label>
+     <input class="form-control" type="text" required="true" name ="name" tal:attributes="value name" ></input>
+    </div>
+    <div class="form-group">
+        <label style="width: 120">Attribute type:</label>
+        <select class="form-control" name="type" required="true"  tal:attributes="disabled php:type != null">
+
+            <option tal:attributes="selected php:type == 'int'" value="int">Integer</option>
+            <option tal:attributes="selected php:type == 'string'" value="string">String</option>
+            <option tal:attributes="selected php:type == 'decimal'" value="decimal">Decimal</option>
+            <option tal:attributes="selected php:type == 'text' " value="text">Text</option>
+            <option tal:attributes="selected php:type == 'file' " value="file">File</option>
+        </select>
+    </div> <br></br>
+    <div class="form-group">
+        <label style="width: 120">Attribute title:</label>
+        <input class="form-control" type="text" id="title" name ="title" required="true" tal:attributes="value title" ></input>
+    </div>
+
+    <br></br>
+
+    <fieldset class="form-group" ><legend>Attribute options</legend>
+        <label style="width: 140">Value</label>
+        <label style="width: 140">Title</label><br/>
+        <div id="extender">
+            <div class="form-group" tal:condition="php: isset(options)" tal:repeat = "item options">
+            <input class="form-control" type="text" name="options[]" required="true" tal:attributes="value item/value" />
+            <input class="form-control" type="text" name="titles[]" required="true" tal:attributes="value item/title" />
+            <a class="btn btn-danger remove" href="${baseUrl}#" >Remove</a><br/></div>
+        </div>
+        <a class="btn btn-success" id="add" href="${baseUrl}#">Add</a></fieldset>
+
+</form>
+</div>
+
+<script>
+
+
+    //set a counter
+    var i = $('input').size() + 1;
+
+    //add input
+    $('a#add').click(function() {
+
+        $('<div><input type="text" name="options[]" required="true" id="' + i + '" value="" />' +
+                '<input type="text" name="titles[]" required="true" id="' + i + '" value="" />'+
+                '<a href="#" class="remove">Remove</a><br/></div>').fadeIn("slow").appendTo('#extender');
+        $('#extender').attr("style","");
+        i++;
+        return false;
+    });
+    $('.remove').live('click', function() {
+        $(this).parent().fadeOut(300, function(){
+            $(this).empty();
+            return false;
+        });
+    });
+</script>

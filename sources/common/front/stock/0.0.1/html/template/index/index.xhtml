@@ -1,0 +1,11 @@
+<div>
+    <div tal:condition="instock">
+        <font style="color: green">Available: ${stock/amount}</font>
+    </div>
+    <div tal:condition="php: instock===false">
+        <font style="color: #ff0000">Out of Stock</font>
+    </div>
+    <div tal:condition="php: instock===null">
+
+    </div>
+</div>

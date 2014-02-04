@@ -1,0 +1,34 @@
+<ul class="nav nav-pills" phptal:cache="1d per url">
+    <tal:block tal:repeat="list categories">
+    <li><a href="${baseUrl}${list/href}" style="padding-right:0px">${list/title}</a></li>
+    <li class="dropdown" >
+        <a data-toggle="dropdown" href="${baseUrl}/catalog/index/subcategory/id/${list/id}/ajax/1" class="dropdown-toggle" style="padding-left:0px" > <b tal:condition="list/children/size" class="caret"></b></a>
+        <ul role="menu" class="dropdown-menu">
+            <li tal:repeat="list2 list/children"><a href="${baseUrl}${list2/href}">${list2/title}</a></li>
+        </ul>
+    </li>
+    </tal:block>
+
+</ul>
+
+ <!--   <script>
+    $('li.dropdown a.dropdown-toggle').each(function(event){
+
+        var div =$(this).parent();
+        $(this).click(function() {
+            if(div.children('.dropdown-menu').length == 0)
+            {
+                var url = $(this).attr('href');
+                var html = $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false
+                }).responseText;
+                var ul = $( html ).find( "ul" )
+                 div.append(ul);
+
+            }
+        })
+    });
+    </script>   -->
+

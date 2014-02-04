@@ -1,0 +1,284 @@
+stores: 
+    store1: 
+        private_key: sdfk4opsdfkopsdfkop
+        front_name: First store
+        admin: http://service.com/admin
+        front: http://service.com
+        admins: https://service.com/admin
+        fronts: https://service.com
+        skin: default
+        per_page: 5
+        homepage: home
+        cache: 1
+        session: 3600
+        extensions: 
+            header: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            modules: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    module: module
+                    route: route
+                    acl: acl
+                    tenant: tenant
+                id: modules
+            products: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    product: product
+                id: products
+            users: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    user: user
+            system: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                id: system
+            entities: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    entity: entity
+                id: entities
+            catalog: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+                entities: 
+                    category: category
+                id: catalog
+            user: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+                entities: 
+                    user: user
+                id: user
+            dashboard: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+            orders: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    order: order
+                    orderproduct: orderproduct
+            pages: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    page: page
+                id: pages
+            page: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            cart: 
+                local: 1
+                type: front
+                name: Shopping cart
+                version: 0.0.1
+                status: 1
+                entities: 
+                    quote: quote
+                id: cart
+            review: 
+                local: 1
+                type: front
+                name: Ratings and trvieews
+                version: 0.0.1
+                status: 1
+            inventory: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    stock: stock
+            stock: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            home: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            checkout: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            messaging: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    message: message
+        share_db: store1
+    store2: 
+        private_key: sdfk4opsdfkopsdfkop
+        front_name: Second store
+        admin: http://service.com/ru/admin
+        front: http://service.com/ru
+        admins: https://service.com/ru/admin
+        fronts: https://service.com/ru
+        share_db: store1
+        skin: rus
+        extensions: 
+            modules: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    module: module
+                    route: route
+                    acl: acl
+                    tenant: tenant
+                id: modules
+            products: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    product: product
+                id: products
+            users: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    user: user
+            system: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+            entities: 
+                local: 1
+                type: admin
+                version: 0.0.2
+                status: 1
+                entities: 
+                    entity: entity
+                id: entities
+            catalog: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+                entities: 
+                    category: category
+                id: catalog
+            user: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+                entities: 
+                    user: user
+                id: user
+            orders: 
+                local: 1
+                type: mixed
+                name: oreder management
+                version: 0.0.1
+                status: 1
+                id: orders
+            pages: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    page: page
+                id: pages
+            page: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            cart: 
+                local: 1
+                type: front
+                name: Shopping cart
+                version: 0.0.1
+                status: 1
+            review: 
+                local: 1
+                type: front
+                name: Ratings and trvieews
+                version: 0.0.1
+                status: 1
+            inventory: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    stock: stock
+            stock: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            home: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            checkout: 
+                local: 1
+                type: front
+                version: 0.0.1
+                status: 1
+            messaging: 
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities: 
+                    message: message
+        per_page: 5
+        homepage: home
+        cache: 45
+        session: 3600
+local: 
+    db: 
+        adapter: PDO_MYSQL
+        params: 
+            host: localhost
+            username: root
+            password: 
+            dbname: peercom2

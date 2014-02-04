@@ -1,0 +1,19 @@
+<div id="add_record" >
+
+    <form  role="form" id='submit' method="post" onsubmit='$("#password").val($.sha256($("#password").val()));return;' >
+    <div class="form-group">
+        <input class="btn btn-success" type='submit' value="Save"></input>
+    </div>
+    <div class="form-group">
+        <label >Store id</label>
+        <input class="form-control" type="text" required="true" name ="storeid" tal:attributes="value storeid" ></input>
+    </div>
+    <div class="form-group">
+        <label >Store key</label>
+        <input class="form-control" type="text" required="true" name ="key" tal:attributes="value key" ></input>
+    </div>
+</form>
+
+
+</div>
+

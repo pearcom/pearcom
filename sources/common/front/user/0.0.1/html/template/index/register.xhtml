@@ -1,0 +1,43 @@
+<script type="text/javascript" src="/media/js/jquery.sha256.js"></script>
+
+<div  class="container" >
+
+        <div id="registration"  class="col-lg-8">
+            <form role="form" id='submit'  method="post" onsubmit='$("#password").val($.sha256($("#password").val()));
+$("#password2").val($.sha256($("#password2").val()));return;'>
+                <div class="form-group">
+                    <label for="username">Login</label>
+                    <input class="form-control" type="text" id ='username' name='username' required="" value=""></input>
+                </div>
+                <div class="form-group">
+                    <label for='email'>Email</label>
+                    <input class="form-control" type="email" name='email' id='email' value=""></input>
+                </div>
+                <div class="form-group">
+                    <label for='password'>Password</label>
+                    <input class="form-control" type="password" id="password" name='password' required="" value=""></input>
+                </div>
+                <div class="form-group">
+                    <label for='password2'>Confirm Password</label>
+                    <input class="form-control" type="password" id="password2" name='password2' required=""  value=""></input>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-success" type='submit' value="Register"></input>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label for='c' >Enter symbols</label>
+                    <input class="form-control" type="text" id="c" name='capt' required=""  value=""></input>
+                </div>
+
+
+            </form>
+            <img  src="/user/index/captcha/ajax/true" id="captcha" />
+            <img  src="/media/images/refresh.png"  onclick="
+    document.getElementById('captcha').src='/user/index/captcha/ajax/true'"
+                 id="change-image"/>
+        </div>
+</div>
+
+
+

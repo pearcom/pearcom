@@ -1,0 +1,96 @@
+<script type="text/javascript" src="/media/js/jquery.sha256.js"></script>
+<script type="text/javascript">
+$(function() {
+    $( ".tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    $( ".tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+});
+$(function() {
+    $( ".tabs" ).tabs({
+        ajaxOptions: { cache: true,
+            success:function(){}}
+        ,
+        beforeLoad: function( event, ui ) {
+            ui.jqXHR.error(function() {
+                ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible." );
+            });
+        },
+        load: function(event, ui) {
+            ui.tab.rel = ui.tab.href;
+            ui.tab.href = "#"+ui.panel.id;
+            /*  $('a', ui.panel).click(function() {
+             $(ui.panel).load(this.href);
+             return false;
+             })*/
+        }
+    });
+});
+</script>
+<style>
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+</style>
+
+<div class="tabs" >
+<ul class="nav nav-pills nav-stacked">
+    <li ><a href="#inbox">Inbox</a></li>
+    <li ><a href="#sent" >Sent</a></li>
+</ul>
+<div id="sent">
+    <div class="tabs" style="width: 105%">
+        <ul class="nav nav-pills nav-stacked">
+            <li ><a href="#smail1">Mail1</a></li>
+        </ul>
+        <div id="smail1">
+            Some sent mail content
+        </div>
+    </div>
+</div>
+<div id="inbox">
+    <div class="tabs"  style="width: 105%">
+        <ul>
+            <li ><a href="#mail1">Mail1</a></li>
+            <li ><a href="#mail2">Mail2</a></li>
+        </ul>
+        <div id="mail1">
+            <div>
+                <label>From:</label>
+                someaddress@mail.com
+            </div>
+            <div>
+                <label>To:</label>
+                someaddress2@mail.com
+            </div>
+            <div>
+                <label>Title:</label>
+                tSome title
+            </div>
+            <textarea class="form-control" rows="5" cols="80" readonly="true">
+                Some mail content
+            </textarea>
+        </div>
+        <div id="mail2">
+            <div>
+                <label>From:</label>
+                someaddress@mail.com
+            </div>
+            <div>
+                <label>To:</label>
+                someaddress2@mail.com
+            </div>
+            <div>
+                <label>Title:</label>
+                tSome title
+            </div>
+            <textarea rows="5" cols="80" readonly="true">
+                Some mail2 content
+            </textarea>
+        </div>
+    </div>
+</div>
+</div>
+

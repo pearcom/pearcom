@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+    <title tal:condition="exists:title" tal:content="title"></title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="/media/images/favicon.ico" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="/media/blank/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/media/blank/css/style.css" rel="stylesheet"/>
+    <!-- Bootstrap theme -->
+    <link href="/media/blank/css/bootstrap-theme.min.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="/media/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="/media/js/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="/media/js/jquery-ui.js"></script>
+    <script src="/media/blank/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $("ul.dropdown li").hover(function() {
+                $(this).addClass("hover");
+                $('ul:first',this).css('visibility', 'visible');
+
+            }, function() {
+                $(this).removeClass("hover");
+                $('ul:first',this).css('visibility', 'hidden');
+            });
+            $("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
+        });
+        $(document).ready(function(){
+            $('#spinner').ajaxStart (function () {
+                $(this).show();
+            }).ajaxStop (function () {
+                $(this).hide();
+            });
+            $.each($('div'),function(index)
+            {
+                href = $(this).attr("href");
+
+                if(href)
+                {
+                    $(this).load(href);
+                    $(this).removeAttr("href");
+                }
+            });
+            $.each($('span'),function(index)
+            {
+                href = $(this).attr("href");
+
+                if(href)
+                {
+                    $(this).load(href);
+                    $(this).removeAttr("href");
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+<!-- Begin Top Navigation -->
+
+
+<!-- End Top Navigation -->
+	<!-- Begin Wrapper -->
+<div tal:content="structure header" id="header"></div>
+<div id="spinner" hidden="true">
+</div>
+
+<div class="container" style="margin-top: 50px">
+  <!--  <div href="${baseUrl}/header/index/index/ajax/true"></div>-->
+
+            <div href="${baseUrl}/catalog/search/index/ajax/true"></div>
+            <div class="alert alert-dismissable alert-success" tal:condition="exists:message">
+                <button class="close" data-dismiss="alert" type="button">×</button>
+                <div tal:content="structure message"></div>
+            </div>
+            <div class="alert alert-dismissable alert-danger" tal:condition="exists:error">
+                <button class="close" data-dismiss="alert" type="button">×</button>
+                <div tal:content="structure error"></div>
+            </div>
+
+			<!-- End Navigation -->
+            <div class="row">
+          <!--  <div class="left1" id="left"   tal:condition="exists:left" tal:content="structure left">Left column block</div>-->
+            <div  tal:condition="exists:back_button"><a href="javascript:history.back();">Back</a></div>
+            <div style="min-height: 400px"  tal:content="structure block" id="content"></div>
+                <div  tal:condition="exists:pagination"  id="pagination" style="text-align:center">
+                    <ul class="pagination" >
+                        <li><a tal:condition="exists: pagination/first" href="${pagination/first/url}" class="prev">&lt;</a></li>
+                        <li class="active"><span  tal:content ="pagination/current/title">4</span></li>
+                        <li><a tal:condition="exists: pagination/last" href="${pagination/last/url}" class="next">&gt;</a></li>
+                    </ul>
+
+                </div>
+			<!-- End Main -->
+			<!-- Begin Footer -->
+            <div class="right">
+                <div id="right"  tal:condition="exists:right" tal:content="structure right"></div>
+            </div>
+
+            </div>
+            <div id="footer" class="footer">
+                <div  tal:condition="exists:bottom" tal:content="structure bottom"></div>
+                <div  tal:condition="exists:footer" tal:content="structure footer"></div>
+
+            </div>
+			<!-- End Footer -->
+
+</div>
+	<!-- End Wrapper
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>     -->
+
+   </body>
+</html>

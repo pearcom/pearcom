@@ -1,0 +1,50 @@
+<div class="alert alert-dismissable alert-success" tal:condition="exists:message">
+    <button class="close" data-dismiss="alert" type="button">×</button>
+    <div tal:content="structure message"></div>
+</div>
+<div class="alert alert-dismissable alert-danger" tal:condition="exists:error">
+<button class="close" data-dismiss="alert" type="button">×</button>
+<div tal:content="structure error"></div>
+</div>
+<div id="add_record">
+
+    <form id='submit' action="/modules/module/remote" method="post" role="form">
+
+        <div tal:condition="exists: versions" class="form-group">
+            <input class="btn btn-success" type='submit' value="Install"></input>
+        </div>
+        <div tal:condition="not: exists: versions" class="form-group">
+            <input class="btn btn-success" type='submit' value="Get Versions"></input>
+        </div>
+
+   <!--    <div class="progress progress-striped active">
+            <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                <span class="sr-only">45% Complete</span>
+            </div>
+        </div>       -->
+
+        <div class="form-group">
+            <label for='title'>Service URL</label><br></br>
+            <input  class="form-control" type="text" required="" name='url' value="${url}">http://service.com</input>
+        </div>
+        <div class="form-group">
+            <label for='title'>StoreID</label><br></br>
+            <input class="form-control" type="text" required="" name='storeid' value="${storeid}" >http://service.com</input>
+        </div>
+        <div class="form-group">
+            <label for='title'>Encription key</label><br></br>
+            <input class="form-control" type="text" required="" name='key' value="${key}" ></input>
+        </div>
+        <div tal:condition="exists: versions" class="form-group">
+            <label>Versions</label>
+            <select class="form-control" name="version" required="">
+                <tal:block tal:repeat = "item versions"  >
+                    <option  tal:define="selectedValue repeat/item/key"
+                             tal:attributes="selected php:version == selectedValue"
+                             value="${item}">${item}</option>
+                </tal:block>
+            </select>
+        </div>
+
+    </form>
+</div>

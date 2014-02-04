@@ -1,0 +1,51 @@
+<script>
+    $(function(){
+        $("#all").change(function()
+        {
+            $(':checkbox').attr('checked',  $(this).is(':checked'));
+        })
+    })
+</script>
+<div id="page-container" class="p60 clearfix col-lg-12 ">
+    Users:
+
+    <!-- insert template content, the ZF way -->
+    <a class="btn btn-success"  href="${baseUrl}/users/index/edit" style="float: right">Add User</a>
+    <form method="post" action="${baseUrl}/users/index/index">
+    <table class="table table-hover tablesorter">
+
+        <tr>
+            <td>Select</td>
+            <td> Id </td>
+            <td>Role</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Last updated</td>
+            <td>Status</td>
+            <td>Action</td>
+           </tr>
+        <tr>
+            <td><input type="checkbox" id = "all"  /></td>
+            <td><input type="text" name = "item_id" value="${filter/item_id}"/></td>
+            <td></td>
+            <td><input type="text" name = "name" value="${filter/name}"/></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input class="btn btn-default" type="submit" value="Filter"/></td>
+        </tr>
+            <tr tal:repeat = "item users">
+                <td><input type = "checkbox" tal:attributes ="checked item/checked" /></td>
+                <td tal:content="item/id"></td>
+                <td tal:content="item/role"></td>
+                <td tal:content="item/username"></td>
+                <td tal:content="item/email"></td>
+                <td tal:content="item/updated_at"></td>
+                <td tal:content="item/status"></td>
+                <td><a class="btn btn-primary" href = "${baseUrl}${item/edit}">Edit</a>
+                <a class="btn btn-danger" href = "${baseUrl}${item/delete}">Delete</a></td>
+            </tr>
+       </table>
+       </form>
+
+   </div>

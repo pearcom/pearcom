@@ -1,0 +1,161 @@
+<script type="text/javascript">
+    $(function() {
+        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+    });
+</script>
+<script>
+$(function() {
+    $( "#tabs" ).tabs({
+        ajaxOptions: { cache: true
+        }
+        ,
+        beforeLoad: function( event, ui ) {
+            ui.jqXHR.error(function() {
+                ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible." );
+            });
+        },
+        load: function(event, ui) {
+            ui.tab.href = "#"+ui.panel.id;
+        }
+    });
+});
+</script>
+<style>
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+</style>
+
+<div id="tabs">
+<ul class="nav nav-pills nav-stacked">
+    <li class="active"><a href="#tabs-1">Design</a></li>
+    <li><a href="#session" >Access</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#messaging">Email</a></li>
+</ul>
+<div id="services">
+
+    <form action="${baseUrl}/system/index/services" method="post" role="form">
+    <input class="btn btn-success"  type="submit"  value="Save"></input>
+    <div class="form-group">
+    Share DB with store
+        <div class="form-group">
+            <label>Store</label>
+            <select class="form-control" name="store" >
+                <tal:block tal:repeat = "item stores"  >
+                 <option  tal:define="selectedValue repeat/item/key"
+                          tal:attributes="selected php:share_db == selectedValue"
+                          value="${repeat/item/key}">${item/front_name}</option>
+                </tal:block>
+            </select>
+        </div>
+    </div>
+    </form>
+
+</div>
+<div id="session">
+    <form  method="post" action="${baseUrl}/system/index/session" role="form">
+        <input class="btn btn-success" type="submit"  value="Save"></input>
+        <div class="form-group">
+            <label>Session lifetime(sec)</label>
+            <input class="form-control" type="text"  name="session" value="${session}"/>
+        </div>
+        <div class="form-group">
+            <label>Cache lifetaime(days)</label>
+            <input class="form-control" type="text"  name="cache" value="${cache}"/>
+        </div>
+    </form>
+</div>
+<div id="messaging">
+    <form  method="post" action="${baseUrl}/system/index/messaging" role="form">
+        <input  class="btn btn-success" type="submit"  value="Save"></input>
+        <div class="form-group">
+            <label>host</label>
+            <input class="form-control" type="text"  name="host" value="${session}"/>
+        </div>
+        <div class="form-group">
+            <label>port</label>
+            <input class="form-control" type="text"  name="port" value="${cache}"/>
+        </div>
+        <div class="form-group">
+            <label>username</label>
+            <input class="form-control" type="text"  name="username" value="${cache}"/>
+        </div>
+        <div class="form-group">
+            <label>password</label>
+            <input class="form-control" type="text"  name="password" value="${cache}"/>
+        </div>
+        <div class="checkbox">
+            <label>Use SSL
+                <input type="checkbox"  name="ssl" checked="true" />
+            </label>
+        </div>
+    </form>
+</div>
+<div id="tabs-1">
+    <form  method="post" role="form">
+        <input  class="btn btn-success" type="submit"  value="Save"></input>
+        <div class="form-group">
+            <label>Header</label>
+            <input class="form-control" type="text"  value = "${store/front_name}" name="front_name"/>
+        </div>
+        <div class="form-group">
+            <label for="logo" >Logo</label>
+            <input class="form-control" type="file" id ="logo" name="logo"/>
+        </div>
+        <div class="form-group">
+            <label>URL</label>
+            <input class="form-control" type="url"  value = "${store/front}" name="url"/>
+        </div>
+        <div class="form-group">
+            <label for="logo" >Secure URL</label>
+            <input class="form-control" type="url"  value = "${store/fronts}" name="sec_url"/>
+        </div>
+
+        <div class="form-group">
+            <label for="skind" >Skin</label>
+            <select class="form-control" id="skind" name="skin">
+                <tal:block tal:condition="pages" tal:repeat="c skins" tal:define="selectedValue skin">
+                    <option value="${c}"
+                            tal:define="optionValue c"
+                            tal:attributes="selected php:optionValue == selectedValue" >
+                        ${c}
+                    </option>
+                </tal:block>
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="home" >Home page</label>
+            <select class="form-control" id="home" name="homepage">
+                <tal:block tal:condition="pages" tal:repeat="c pages" tal:define="selectedValue page">
+                    <option value="${c/id}"
+                            tal:define="optionValue c/id"
+                            tal:attributes="selected php:optionValue == selectedValue" >
+                        ${c/name}
+                    </option>
+                </tal:block>
+
+            </select>
+        </div>
+        <div class="form-group">
+            <div>
+                <label for="lists" >Number Items per page</label>
+                <select class="form-control" id="lists" name="per_page">
+                    <option tal:attributes="selected php:per_page == 50" value="50">50</option>
+                    <option tal:attributes="selected php:per_page == 20" value="20">20</option>
+                    <option tal:attributes="selected php:per_page == 10" value="10">10</option>
+                    <option tal:attributes="selected php:per_page == 5" value="5">5</option>
+                    <option tal:attributes="selected php:per_page == 1" value="1">1</option>
+                </select>
+            </div>
+        </div>
+
+    </form>
+</div>
+</div>

@@ -1,0 +1,89 @@
+<script type="text/javascript" src="/media/js/jquery.friendurl.min.js"></script>
+<script type="text/javascript">
+        $(function() {
+        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+        });
+        </script>
+                 <script>
+                  $(function() {
+                      $( "#tabs" ).tabs({
+                          ajaxOptions: { cache: true
+                          }
+                          ,
+                          beforeLoad: function( event, ui ) {
+                              ui.jqXHR.error(function() {
+                                  ui.panel.html(
+                                          "Couldn't load this tab. We'll try to fix this as soon as possible." );
+                              });
+                          },
+                          load: function(event, ui) {
+                              ui.tab.href = "#"+ui.panel.id;
+                          }
+                      });
+                  });
+                  </script>
+<script>
+    $(function(){
+        $('#title').friendurl({id : 'rewrite', divider: '-', transliterate: true});
+    });
+</script>
+
+
+<div id="add_record" class="container" style="width: 90%">
+
+<a class="btn btn-default" type="button" style="float: right" href="${baseUrl}/products/index/index/">Back</a>
+
+<div id="tabs"  >
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#general"><span>General</span></a></li>
+        <li tal:condition="id"><a href="${baseUrl}/inventory/index/index/id/${id}/ajax/1"><span>Stock</span></a></li>
+    </ul>
+    <div id="general" class="tab-content">
+        <form  enctype="multipart/form-data"  id='submit' method="post" role="form">
+
+            <div class="form-group">
+                <label>Image</label><br></br>
+                <img tal:attributes="src image" class="cke_button__image_icon"/>
+            </div>
+            <div class="form-group">
+                <label for='title'>Title</label><br></br>
+                <input class="form-control" type="text" id="title" name='title' required='' tal:attributes="value title"></input>
+            </div>
+            <div class="form-group">
+                <label for='price'>Price</label><br></br>
+                <input class="form-control" type="text" name='price' required='' tal:attributes="value price"></input>
+            </div>
+            <div class="form-group">
+                <label for='price'>Category</label><br></br>
+                <input class="form-control" type="text" readonly="true" name='category' tal:attributes="value category"></input>
+            </div>
+            <div  tal:repeat = "item product" class="form-group">
+                <label tal:content="item/title">Place</label>
+                <tal:block tal:condition ="not: item/options" tal:define="type item/type; item item">
+                    <input class="form-control" tal:condition ="php: type != 'long'"  value="${item/value}" tal:attributes="name item/name; type type; id item/name" ></input>
+                    <textarea class="form-control" tal:condition ="php: type == 'long'" cols="40" rows="5" tal:content="item/value" tal:attributes="name item/name;id item/name">
+                    </textarea>
+                </tal:block>
+                <select class="form-control"  tal:condition="item/options" tal:attributes="name item/name; id item/name">
+                    <tal:block tal:condition="item/options" tal:repeat="c item/options" tal:define="selectedValue item/value">
+                        <option value="${c/value}"
+                                tal:define="optionValue c/value"
+                                tal:attributes="selected php:optionValue == selectedValue" >
+                            ${c/title}
+                        </option>
+                    </tal:block>
+
+                </select>
+            </div><br></br>
+            <div class="form-group">
+                <input class="btn btn-success"  type='submit' value="Save"></input>
+                <br/>
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+

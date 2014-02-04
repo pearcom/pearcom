@@ -1,0 +1,4 @@
+servce_url: localhost #address of module service part
+storeid: asjdasjd2394jklasdkl # store identifier at server side
+public_key: sdfkopsdfkopsdfkop # encription key for data transfer between server and client
+private_key: sdfk4opsdfkopsdfkop # sensitive data is encrypted by the key before adding to message to server. can be decrypted at client side only.

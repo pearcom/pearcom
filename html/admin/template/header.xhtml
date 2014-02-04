@@ -1,0 +1,96 @@
+<div id="header">
+    <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button data-target=".navbar-ex1-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="${baseUrl}/dashboard" class="navbar-brand">Dashboard</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+
+                <li><a href="${baseUrl}/pages/">Pages</a>
+                </li>
+                <li><a href="${baseUrl}/messaging/">Messages</a>
+                </li>
+                <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="${baseUrl}/users/">Users<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${baseUrl}/users/">List</a></li>
+                        <li><a href="${baseUrl}/users/attributes/index">Attributes</a></li>
+                        <li><a href="${baseUrl}/users/acl/index">Access</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="${baseUrl}/products/index/index">Products<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a  href="${baseUrl}/products/index/index">Categories</a></li>
+                        <li><a href="${baseUrl}/products/product/list">List</a></li>
+                        <li><a href="${baseUrl}/products/product/import">Import</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle"  href="${baseUrl}/orders/index/index">Orders<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${baseUrl}/orders/index/index">List</a></li>
+                        <li><a href="${baseUrl}/orders/index/import">Import</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown" ><a data-toggle="dropdown" class="dropdown-toggle" href="${baseUrl}/system">Settings<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${baseUrl}/system">Global</a></li>
+                        <li><a href="${baseUrl}/entities/index/index">Entities</a></li>
+                        <li><a href="${baseUrl}/modules/">Modules</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right navbar-user">
+                <li tal:condition="not: logged"><a href="${baseUrl}/user/index/login">Login</a></li>
+                <li tal:condition="logged" class="dropdown user-dropdown">
+
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#"><div href="${baseUrl}/user/index/index/ajax/1">&nbsp;</div></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${baseUrl}/user/account/index"><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="${baseUrl}/user/mail/index"><i class="fa fa-envelope"></i> Inbox </a></li>
+                        <li class="divider"></li>
+
+                        <li><a href="${baseUrl}/user/index/logout"><i class="fa fa-power-off"></i> Log Out</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+<div>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+
+            $("ul.subnav").parent().append("<span></span>"); //Only shows drop down trigger when js is enabled (Adds empty span tag after ul.subnav*)
+
+            $("ul.topnav li span").click(function() { //When trigger is clicked...
+
+                //Following events are applied to the subnav itself (moving subnav up and down)
+                $(this).parent().find("ul.subnav").slideDown('fast').show(); //Drop down the subnav on click
+
+                $(this).parent().hover(function() {
+                }, function(){
+                    $(this).parent().find("ul.subnav").slideUp('slow'); //When the mouse hovers out of the subnav, move it back up
+                });
+
+                //Following events are applied to the trigger (Hover events for the trigger)
+            }).hover(function() {
+                        $(this).addClass("subhover"); //On hover over, add class "subhover"
+                    }, function(){	//On Hover Out
+                        $(this).removeClass("subhover"); //On hover out, remove class "subhover"
+                    });
+
+        });
+    </script></div> </div>

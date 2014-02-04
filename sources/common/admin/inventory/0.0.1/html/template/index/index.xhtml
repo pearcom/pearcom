@@ -1,0 +1,38 @@
+
+<div id="page-container" class="p60 clearfix col-lg-12 tab-content">
+    <div id="saved" style="display: none" class="alert alert-dismissable alert-success">
+        Stock updated
+        <button class="close" data-dismiss="alert" type="button">×</button>
+    </div>
+    <form  action="/inventory/index/index/id/${product_id}" role="form" id='quantity' method="post"
+            onsubmit="$.post($(this).attr('action'), $(this).serialize(), function() {
+            $('#saved').show();
+}); return false;" >
+
+    <div class="form-group">
+        <label for='price'>Quantity</label><br></br>
+        <input tal:condition="exists: stock"  type="text"  name='amount' tal:attributes="value stock/amount"></input>
+        <input tal:condition="not: exists: stock"  type="text"  name='amount' value=""></input>
+    </div>
+        <div  tal:repeat = "item product" class="form-group">
+            <div class="form-group">
+            <label tal:content="item/title">Place</label>
+            <tal:block tal:condition ="not: item/options" tal:define="type item/type; item item">
+                <input  class="form-control" tal:condition ="php: type != 'long'"  value="${item/value}" tal:attributes="name item/name; type type; id item/name" ></input>
+                <textarea class="form-control" tal:condition ="php: type == 'long'" cols="40" rows="5" tal:content="item/value" tal:attributes="name item/name">
+                </textarea>
+            </tal:block>
+            <select  class="form-control" tal:condition="item/options" tal:attributes="name item/name; id item/name">
+                <tal:block tal:condition="item/options" tal:repeat="c item/options" tal:define="selectedValue item/value">
+                    <option value="${c/value}"
+                            tal:define="optionValue c/value"
+                            tal:attributes="selected php:optionValue == selectedValue" >
+                        ${c/title}
+                    </option>
+                </tal:block>
+            </select>
+            </div>
+        </div>
+        <input  class="btn btn-success"  type='submit' value="Save"></input>
+    </form>
+</div>

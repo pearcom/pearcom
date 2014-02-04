@@ -1,0 +1,53 @@
+<script>
+    $(function() {
+        $(".draggable").draggable({ revert: true,helper: "clone",opacity: 0.5 });
+
+    });
+</script>
+<div class="row">
+<div id="page-container" class="col-lg-8">
+    <label>Products:</label>
+    <div class="form-group">
+    <!-- insert template content, the ZF way -->
+    <a class="btn btn-default link" href = "${baseUrl}${category_add}">Add Category</a>
+    <a class="btn btn-default link" href = "${baseUrl}${category_edit}">Edit Category</a>
+    <a class="btn btn-default" href = "${baseUrl}${category_delete}">Delete Category</a>
+    <a class="btn btn-success link" href = "${baseUrl}${add}" style="float: right">Add Product</a>
+     </div>
+    <table class="table table-bordered table-hover tablesorter">
+
+        <tr>
+            <!--     <td tal:content = "id"> id </td>
+               <td tal:content = "Name">Name</td>
+               <td tal:content = "LastName">Last Name</td>
+               <td tal:content = "email">Email</td>
+               <td tal:content = "Status">Status</td>
+               <td tal:content = "Action">Action</td>
+                            -->
+            <td>Id</td>
+            <td>Title</td>
+            <td>Price</td>
+            <td>Action</td>
+        </tr>
+        <tr tal:repeat = "item list" class="draggable" value="${item/id}">
+
+            <td><a>${item/id}</a></td>
+            <td><a>${item/title}</a></td>
+            <td tal:content="item/price"></td>
+            <td><a class="btn btn-primary link" href = "${baseUrl}${item/edit}">Edit</a>
+                <a class="btn btn-danger" href = "${baseUrl}${item/delete}">Delete</a></td>
+        </tr>
+    </table>
+    <div  tal:condition="exists:pagination"  id="pagination">
+
+        <section class="container">
+            <nav class="pagination">
+                <a tal:condition="exists: pagination/first" href="${baseUrl}${pagination/first/url}" class="prev">&lt;</a>
+                <span  tal:content ="pagination/current/title">4</span>
+                <a tal:condition="exists: pagination/last" href="${baseUrl}${pagination/last/url}" class="next">&gt;</a>
+            </nav>
+        </section>
+    </div>
+
+</div>
+</div>

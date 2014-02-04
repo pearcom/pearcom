@@ -1,0 +1,35 @@
+<div class="clearfix" id="page-container">
+    <div href="${baseUrl}/catalog/search/index/ajax/true"></div>
+    <div href="${baseUrl}/catalog/index/category/id/${id}/ajax/1"></div>
+
+
+<div class="row">
+
+    <div class="col-lg-3 col-md-4 col-xs-6 thumb" tal:repeat="list products" >
+        <div class="thumbnail">
+   <a class="product-image" tal:attributes="title list/title; href list/href" tal:define="image list/image">
+       <img tal:condition="php: image !=''" alt="${list/title}"  tal:attributes="src image; alt list/title" style="height: 150px;width: 200px" />
+       <img tal:condition="php: image ==''" alt="${list/title}"  src="media/images/no-product-image.jpg" style="height: 150px;width: 200px" />
+   </a>
+   <div class="caption">
+	<h4 class="product-name"><a tal:attributes="title list/title; href list/href">${list/title}</a></h4>
+
+	<div class="pull-right" phptal:cache="25m per list/id" href="${baseUrl}/review/rating/index/id/${list/id}/ajax/1">&nbsp;</div>
+       <div ><span class="price">$ ${list/price}</span></div>
+       <input class="btn btn-primary" title="Add to Cart" type="button" value="Add to Cart"
+              onclick="$.post('${baseUrl}/cart/index/add/id/${list/id}/qty/1/ajax/1', null, function() {
+          $('#cart').load('${baseUrl}/cart/index/view/ajax/1');
+}); return false;"/>
+
+       <p>${list/description} </p>
+
+    </div>
+
+
+
+    </div>
+	</div>
+
+  </div>
+</div>
+

@@ -1,0 +1,37 @@
+<div id="general">
+
+    <h1 tal:content="name"></h1>
+        <div>
+            <label for='amount'>Type</label><br></br>
+            <select name="type" >
+
+                <option tal:attributes="selected php:type == 'front'" value="front">Frontend</option>
+                <option tal:attributes="selected php:type == 'mixed'" value="mixed">Administation/Frontend</option>
+                <option tal:attributes="selected php:type == 'service'" value="service">Service</option>
+                <option tal:attributes="selected php:type == 'admin' " value="admin">Administration</option>
+            </select>
+
+        </div>
+        <div>
+            <label for='location'>Location</label><br></br>
+            <select name="location" >
+
+                <option tal:attributes="selected php:location == true" value="true">Local</option>
+                <option tal:attributes="selected php:location == false" value="false">Serviced</option>
+            </select>
+
+        </div>
+        <div>
+            <label for='place'>Version</label><br></br>
+            <input type="text" name='version' value="" readonly="true"  tal:attributes="value version"></input>
+        </div>
+        <div>
+            <label for='place'>Entities</label><br></br>
+            <input type="text" name='version' value="" readonly="true" tal:attributes="value entities"></input>
+        </div>
+        <div>
+            <label for='comment'>Comment</label><br></br>
+            <textarea name='comment'></textarea>
+            <input type = "hidden" required="" name="saved" value="1"></input>
+        </div>
+</div>

@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
+<script>
+    $(function(){
+        $("#all").change(function()
+        {
+            $(':checkbox').attr('checked',  $(this).is(':checked'));
+        })
+    })
+</script>
+<script>
+$(function() {
+    $( "#from" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1,
+        dateFormat: "yy-mm-dd",
+        onClose: function( selectedDate ) {
+            $( "#to" ).datepicker( "option", "minDate", selectedDate );
+        }
+    });
+    $( "#to" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1,
+        dateFormat: "yy-mm-dd",
+        onClose: function( selectedDate ) {
+            $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+        }
+    });
+});
+</script>
+<div id="page-container" class="p60 clearfix col-lg-12">
+Orders:
+
+
+<a href = "" style="float: right">Add Order</a>
+
+    <form method="post" action="/orders/index/index">
+        <table class="table table-hover tablesorter">
+
+            <tr>
+                <td>Select All</td>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Status</td>
+                <td>Date</td>
+                <td>Action</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id = "all"  /></td>
+                <td><input type="text"  class="form-control" name = "item_id" value="${filter/item_id}"/></td>
+                <td><input type="text" class="form-control" name = "title" value="${filter/title}"/></td>
+                <td><input type="text" class="form-control" name = "status" value="${filter/status}"/></td>
+                <td>
+                    <input type="text" class="form-control"  id="from" name = "date" value="${filter/created_at}"/>
+               <!-- <input type="text" class="form-control"  id="to" name = "dateto" value="${filter/created_at}"/>--></td>
+                <td><input type="submit" class="btn" value="Filter"/>
+                    <input type="button" class="btn" value="Export"
+                                                                onclick='$("form").attr("action","/orders/index/export");$("form").submit();'/>
+                </td>
+
+            </tr>
+            <tr tal:repeat = "item list">
+                <td><input type="checkbox" tal:attributes ="checked item/checked" name="selection[${item/id}]" value="${item/id}"/></td>
+                <td tal:content="item/id"></td>
+                <td tal:content="item/name"></td>
+                <td tal:content="item/status"></td>
+                <td tal:content="item/created_at"></td>
+                <td><a href = "${baseUrl}${item/view}">View</a></td>
+            </tr>
+        </table>
+
+    </form>
+</div>

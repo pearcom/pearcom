@@ -1,0 +1,33 @@
+
+<div id="page-container" class="p60 clearfix col-lg-12 container ">
+   <label> User Attributes:</label>
+
+    <!-- insert template content, the ZF way -->
+    <a class="btn btn-success" href="${baseUrl}/entities/attributes/edit/entity/user" style="float: right">Add Attribute</a>
+
+    <table class="table table-hover tablesorter">
+
+        <tr>
+            <!--     <td tal:content = "id"> id </td>
+               <td tal:content = "Name">Name</td>
+               <td tal:content = "LastName">Last Name</td>
+               <td tal:content = "email">Email</td>
+               <td tal:content = "Status">Status</td>
+               <td tal:content = "Action">Action</td>
+                            -->
+            <td> Id </td>
+            <td>Name</td>
+            <td>Type</td>
+            <td>Action</td>
+           </tr>
+            <tr tal:repeat = "item attrs">
+                <td tal:content="item/id"></td>
+                <td tal:content="item/attribute_name"></td>
+                <td tal:content="item/type"></td>
+                <td><a class="btn btn-primary" href = "${baseUrl}${item/edit}">Edit</a>
+                <a class="btn btn-danger" href = "${baseUrl}${item/delete}">Delete</a></td>
+            </tr>
+       </table>
+
+
+   </div>

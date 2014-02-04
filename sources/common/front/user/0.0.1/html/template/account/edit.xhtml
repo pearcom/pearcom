@@ -1,0 +1,16 @@
+<div>
+    <form role="form" id='submit' method="post" onsubmit='$("#password").val($.sha256($("#password").val()));return;' >
+    <div class="form-group">
+        <input class="btn btn-success" type='submit' value="Save"></input>
+    </div>
+    <div class="form-group">
+        <label >Username</label>
+        <input class="form-control" type="text" readonly="true" required="true" name ="username" tal:attributes="value username" />
+    </div>
+    <div  class="form-group" tal:repeat = "item user">
+        <label  tal:content="item/title">Place</label>
+        <input class="form-control" type="text" required="true" tal:attributes="name repeat/item/key; value item/value" />
+    </div>
+    </form>
+</div>
+

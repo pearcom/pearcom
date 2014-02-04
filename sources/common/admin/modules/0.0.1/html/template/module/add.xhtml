@@ -1,0 +1,33 @@
+<style>
+    .ui-progressbar .ui-progressbar-value { background-image: url(/media/images/pbar-ani.gif); }
+</style>
+<script>
+$(function() {
+    $( "#progressbar" ).progressbar({
+        value: 59
+    });
+});
+</script>
+<div id="add_record" class="container">
+    <form id='submit' method="post" role="form" >
+
+        <div class="form-group">
+            <input type='submit' value="Save"></input>
+        </div>
+        <div class="form-group" id="progressbar"></div>
+        <div class="form-group">
+            <label for='title'>Service URL</label><br></br>
+            <input class="form-control" type="text" name='url' >http://service.com</input>
+        </div>
+        <div class="form-group">
+            <label for='title'>StoreID</label><br></br>
+            <input class="form-control" type="text" name='storeid' >http://service.com</input>
+        </div>
+        <div class="form-group">
+            <label for='title'>Encription key</label><br></br>
+            <input class="form-control" type="text" name='key' >http://service.com</input>
+        </div>
+
+    </form>
+</div>
+

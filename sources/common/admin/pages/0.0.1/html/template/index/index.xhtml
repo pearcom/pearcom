@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="/media/css/jquery.treeview.css" />
+
+
+
+<script src="/media/js/lib/jquery.cookie.js"></script>
+<script src="/media/js/jquery.treeview.js"></script>
+<script>
+$(document).ready(function(){
+
+    $("#navigation").treeview({
+        persist: "location",
+        collapsed: true,
+        unique: true
+    });
+
+});
+function load()
+{
+    $('#product_place').load($(this).attr('href'));
+    return false;
+}
+</script>
+
+<div id="main">
+<div id="tabs"  style=" padding-top: 15px; width: 20%;float: left">
+    <ul metal:define-macro="output_list" tal:condition="list" id="navigation" class = "treeview-famfamfam">
+        <li tal:repeat="list_item list" class ="expandable">${list_item/title}
+              <a tal:condition="php: list_item['href']!='#'" href="${baseUrl}${list_item/href}"> Edit</a>
+
+
+             <!-- this re-defines list variable
+                  by assigning the next sub-level of the list to it,
+                  and then calls this macro again -->
+            <tal:block tal:define="list list_item/sublist"
+                       metal:use-macro="output_list" />
+        </li>
+    </ul>
+    <!-- macro definition above isn't automatically run,
+     so kick-start the process -->
+    <tal:block metal:use-macro="output_list" />
+</div>
+<div id="product_place" style="display:block;float: right;padding-top: 15px;width: 80%;">
+</div>
+</div>
+
+<div id="page-container" class="col-lg-8">
+    CMS Pages:
+
+    <!-- insert template content, the ZF way -->
+    <a class="btn btn-success" href="${baseUrl}/pages/index/edit" style="display:block;float: right">Add Page</a>
+
+    <table class="table table-hover tablesorter">
+
+        <tr>
+            <td>id</td>
+            <td>Name</td>
+            <td>Action</td>
+        </tr>
+           <tr tal:repeat = "item pages">
+              <td tal:content="item/id"></td>
+             <td tal:content="item/name"></td>
+              <td><a class="btn btn-primary" href = "${baseUrl}${item/edit}">Edit</a>
+                  <a class="btn btn-danger" href = "${baseUrl}${item/delete}">Delete</a></td>
+               <td><a class="btn btn-default" href = "${baseUrl}${item/view}" target="_blank">View</a>
+               </td>
+          </tr>
+      </table>
+
+
+  </div>

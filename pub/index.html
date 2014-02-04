@@ -1,0 +1,143 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="/media/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/media/css/jquery.jgrowl.css" />
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/ui-darkness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/media/css/dropdown.css" />
+
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="/media/css/style-ie.css" />
+    <![endif]-->
+
+    <script type="text/javascript" src="/media/js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/media/js/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="/media/js/jquery-ui-1.8.23.custom.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(function() {
+            $("ul.dropdown li").hover(function() {
+                $(this).addClass("hover");
+                $('ul:first',this).css('visibility', 'visible');
+
+            }, function() {
+                $(this).removeClass("hover");
+                $('ul:first',this).css('visibility', 'hidden');
+            });
+            $("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
+        });
+    </script>
+
+</head>
+
+<body>
+<div>
+    <ul class="topnav" >
+        <li>
+            <a href="/">Home</a>
+            <ul class="subnav">
+                <li><a href="/modules/index/edit">Edit</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/products/index/index">Products</a>
+            <ul class="subnav">
+                <li><a href="#">Sub Nav Link</a></li>
+                <li><a href="#">Sub Nav Link</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">Resources</a>
+            <ul class="subnav">
+                <li><a href="#">Sub Nav Link</a></li>
+                <li><a href="#">Sub Nav Link</a></li>
+            </ul>
+        </li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Advertise</a></li>
+        <li><a href="#">Submit</a></li>
+        <li><a href="#">Contact Us</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("ul.subnav").parent().append("<span></span>"); //Only shows drop down trigger when js is enabled (Adds empty span tag after ul.subnav*)
+
+        $("ul.topnav li span").click(function() { //When trigger is clicked...
+
+            //Following events are applied to the subnav itself (moving subnav up and down)
+            $(this).parent().find("ul.subnav").slideDown('fast').show(); //Drop down the subnav on click
+
+            $(this).parent().hover(function() {
+            }, function(){
+                $(this).parent().find("ul.subnav").slideUp('slow'); //When the mouse hovers out of the subnav, move it back up
+            });
+
+            //Following events are applied to the trigger (Hover events for the trigger)
+        }).hover(function() {
+                    $(this).addClass("subhover"); //On hover over, add class "subhover"
+                }, function(){	//On Hover Out
+                    $(this).removeClass("subhover"); //On hover out, remove class "subhover"
+                });
+
+    });
+</script>
+
+<!--<div id="gallery">-->
+<!--    <ul>-->
+<!--        <li><a href="gallery.html"><img src="/media/images/tb1.jpg" alt="demo" /></a></li>-->
+<!--        <li><a href="gallery.html"><img src="/media/images/tb2.jpg" alt="demo" /></a></li>-->
+<!--        <li><a href="gallery.html"><img src="/media/images/tb3.jpg" alt="demo" /></a></li>-->
+<!--        <li><a href="gallery.html"><img src="/media/images/tb4.jpg" alt="demo" /></a></li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+
+<div class="col-main" id="content">
+    <ul class="breadcrumbs">
+        <li>404 Error</li>
+    </ul>
+    <h2 class="page-head">Whoops!</h2>
+    <p>The page you requested is no longer here [error 404].</p>
+    <p><strong>You may not be able to find this page because of:</strong></p>
+    <ol class="decimal">
+        <li>An out-of-date bookmark/favorite</li>
+        <li>A search engine that has an out-of-date listing for us</li>
+        <li>A mis-typed address</li>
+    </ol><br/>
+
+    <strong>Try one of the trusty links below to get back to your surfing.</strong></p>
+    <ul class="disc">
+        <li><a href="/">Home Page</a></li>
+        <li><a href="/sitemap">Site Map</a></li>
+    </ul>
+</div>
+
+
+<!--<div id="box_left">-->
+<!--    <h3>About</h3>-->
+<!--    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>-->
+<!--    <a href="page.html"><img src="/media/images/more.png" class="more" width="68" height="24" alt="more" /></a>-->
+<!--</div>-->
+<!---->
+<!--<div id="box_right">-->
+<!--    <h3>Recent</h3>-->
+<!--    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>-->
+<!--    <a href="page.html"><img src="/media/images/more.png" class="more" width="68" height="24" alt="more" /></a>-->
+<!--</div>-->
+<!---->
+<!--<div id="box_middle">-->
+<!--    <h3>Services</h3>-->
+<!--    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus dolor hendrerit lacus egestas sollicitudin. Nullam pharetra commodo sem, sit amet mattis metus vestibulum at. Suspendisse in tellus metus. Ut lobortis gravida magna, et mollis nisl luctus et. Ut quis neque eros</p>-->
+<!--    <a href="page.html"><img src="/media/images/more.png" class="more" width="68" height="24" alt="more" /></a>-->
+<!--</div>-->
+
+<div id="footer">
+    
+</div>
+
+</body>
+</html>

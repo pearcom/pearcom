@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="/media/css/jquery.treeview.css" />
+
+
+
+<script src="/media/js/lib/jquery.cookie.js"></script>
+<script src="/media/js/jquery.treeview.js"></script>
+<script>
+$(document).ready(function(){
+
+    $("#navigation").treeview({
+        persist: "location",
+        collapsed: true,
+        unique: true
+    });
+
+});
+function load()
+{
+    $('#product_place').load($(this).attr('href'));
+    return false;
+}
+</script>
+
+<div id="main">
+<div id="tabs"  style=" padding-top: 15px; width: 20%;float: left">
+    <ul metal:define-macro="output_list" tal:condition="list" id="navigation" class = "treeview">
+        <li tal:repeat="list_item list" class ="expandable">
+            <a href="${baseUrl}${list_item/href}"
+               onclick="$('#product_place').load($(this).attr('href'));
+                return false;">${list_item/title}</a>
+
+
+            <!-- this re-defines list variable
+                 by assigning the next sub-level of the list to it,
+                 and then calls this macro again -->
+            <tal:block tal:define="list list_item/sublist"
+                       metal:use-macro="output_list" />
+        </li>
+    </ul>
+    <!-- macro definition above isn't automatically run,
+     so kick-start the process -->
+    <tal:block metal:use-macro="output_list" />
+</div>
+<div id="product_place" style="float: right;padding-top: 15px;width: 80%;">
+</div>
+</div>

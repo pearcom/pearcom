@@ -1,0 +1,73 @@
+
+
+<div id="add_record" class="container" style="width: 90%">
+
+<a class="btn btn-default" type="button" style="float: right" href="${baseUrl}/orders/index/index/">Back</a>
+
+
+    <div id="general" class="tab-content">
+        <form  enctype="multipart/form-data"  id='submit' method="post" role="form">
+
+            <div class="form-group">
+                <label>Order time</label><br></br>
+                <input class="form-control" type="text" id="created_at" name='created_at' required='' tal:attributes="value created_at"></input>
+            </div>
+            <div class="form-group">
+                <label for='title'>Title</label><br></br>
+                <input class="form-control" type="text" id="title" name='title' required='' tal:attributes="value title"></input>
+            </div>
+            <div class="form-group">
+                <label for='price'>Status</label><br></br>
+                <input class="form-control" type="text" name='status' required='' tal:attributes="value status"></input>
+            </div>
+
+            <div  tal:repeat = "item order" class="form-group">
+                <label tal:content="item/title">Place</label>
+                <tal:block tal:condition ="not: item/options" tal:define="type item/type; item item">
+                    <input class="form-control" tal:condition ="php: type != 'long'"  value="${item/value}" tal:attributes="name item/name; type type; id item/name" ></input>
+                    <textarea class="form-control" tal:condition ="php: type == 'long'" cols="40" rows="5" tal:content="item/value" tal:attributes="name item/name;id item/name">
+                    </textarea>
+                </tal:block>
+                <select class="form-control"  tal:condition="item/options" tal:attributes="name item/name; id item/name">
+                    <tal:block tal:condition="item/options" tal:repeat="c item/options" tal:define="selectedValue item/value">
+                        <option value="${c/value}"
+                                tal:define="optionValue c/value"
+                                tal:attributes="selected php:optionValue == selectedValue" >
+                            ${c/title}
+                        </option>
+                    </tal:block>
+
+                </select>
+            </div><br></br>
+
+            <div  tal:repeat = "items products" class="form-group">
+
+
+                <table class="table table-hover tablesorter">
+                <tr>
+                    <td>Title</td>
+                    <td>Price</td>
+                    <td>Qty</td>
+                </tr>
+                <tr tal:repeat ="items products">
+            <td  class="form-group">
+                    <a id="title" name='title' required='' href="/products/product/edit/id/${items/product_id}">${items/title}</a>
+            </td>
+                    <td  class="form-group">
+                        <a id="title" name='title' required='' href="/products/product/edit/id/${items/product_id}">${items/price}</a>
+                    </td>
+                    <td  class="form-group">
+                        <a id="title" name='title' required='' href="/products/product/edit/id/${items/product_id}">${items/qty}</a>
+                    </td>
+                </tr>
+             </table>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-success"  type='submit' value="Save"></input>
+                <br/>
+            </div>
+        </form>
+    </div>
+</div>
+
+

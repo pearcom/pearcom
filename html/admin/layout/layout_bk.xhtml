@@ -1,0 +1,136 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title tal:condition="exists:title" tal:content="title"></title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/media/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/media/css/jquery.jgrowl.css" />
+    <link rel="stylesheet" type="text/css" href="/media/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/media/css/dropdown.css" />
+
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="/media/css/style-ie.css" />
+    <![endif]-->
+
+    <script type="text/javascript" src="/media/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="/media/js/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="/media/js/jquery-ui.js"></script>
+
+
+    <script type="text/javascript">
+        $(function() {
+
+            $("ul.dropdown li").hover(function() {
+                $(this).addClass("hover");
+                $('ul:first',this).css('visibility', 'visible');
+
+            }, function() {
+                $(this).removeClass("hover");
+                $('ul:first',this).css('visibility', 'hidden');
+            });
+            $("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
+        });
+
+        $(document).ready(function(){
+            $("draggable").draggable({ revert: true });
+            $.each($('.dropdown'),function(index)
+            {
+                var data= $(this).find("input");
+                $(this).find("input").click(function()
+                {
+                    $(this).parent().find(".values").click(function(){});
+                    if(!$(this).parent().find(".values").is(':visible'))
+                    {
+                        list = $(this).parent().find(".values").show();
+                        list.find("label").click(function(){
+                            if($(this).find(".ids").length)
+                            {
+                                data.val($(this).find(".ids").val().trim());
+
+                            }
+                        });
+                    }else
+                    {
+                        $(this).parent().find(".values").hide();
+                    }
+                });
+            });
+            $.each($('div'),function(index)
+            {
+                $('#spinner').ajaxStart (function () {
+                    $(this).show();
+                }).ajaxStop (function () {
+                    $(this).hide();
+                });
+                href = $(this).attr("href");
+
+                if(href)
+                {
+                    $(this).load(href);
+
+                }
+            });
+        });
+        var submit =function() {
+
+            if($(this).attr("action")!="")
+            {
+                $.post($(this).attr('action'), $(this).serialize(), function() {
+                });
+            }
+            return false;
+        };
+    </script>
+
+
+
+</head>
+
+<body>
+
+<div class = "wrapper">
+
+    <div class = "header">
+        <div tal:content="structure header" id="header">
+        </div>
+        <span class="message" tal:condition="exists:message" tal:content="structure message">
+              Use user/preferences here if defined
+        </span>
+        <span class="error" tal:condition="exists:error" tal:content="structure error">
+              Use user/preferences here if defined
+        </span>
+    </div>
+    <div id="spinner" hidden="true">
+    </div>
+    <div class="left1" id="left"   tal:condition="exists:left" tal:content="structure left">Left column block</div>
+
+    <div class="left2">
+        <div  tal:condition="exists:back_button"><a href="javascript:history.back();">Back</a></div>
+        <div  tal:content="structure block" id="block">Main block with content</div>
+        <div  tal:condition="exists:pagination"  id="pagination">
+            <section class="container">
+                <nav class="pagination">
+                    <a tal:condition="exists: pagination/first" href="${pagination/first/url}" class="prev">&lt;</a>
+                    <span  tal:content ="pagination/current/title">4</span>
+                    <a tal:condition="exists: pagination/last" href="${pagination/last/url}" class="next">&gt;</a>
+                </nav>
+            </section>
+        </div>
+    </div>
+
+
+    <div class="right">
+        <div id="right"  tal:condition="exists:right" tal:content="structure right">Right column block</div>
+    </div>
+
+
+    <div class="footer">
+        <div  tal:condition="exists:bottom" tal:content="structure bottom"></div>
+        <div  tal:condition="exists:footer" tal:content="structure footer"></div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

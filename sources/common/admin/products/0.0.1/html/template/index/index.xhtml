@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="${baseUrl}/media/css/jquery.treeview.css" />
+
+
+
+<script src="/media/js/lib/jquery.cookie.js"></script>
+<script src="/media/js/jquery.treeview.js"></script>
+<script>
+$(document).ready(function(){
+
+    $("#navigation").treeview({
+        persist: "location",
+        collapsed: false,
+        unique: true
+    });
+    $( "#navigation li a" ).droppable({
+       /* accept: ".draggable",*/
+        hoverClass: "ui-state-hover",
+        drop: handleDrop
+    });
+    function handleDrop(event,ui) {
+        var href =$(this).attr("href");
+        //ajax updating
+        $.ajax({
+            url: $(this).attr("href"),
+            type: "post",
+            data: {
+                product: ui.draggable.attr("value")
+            },
+            success: function() {
+                //assign div to new parent
+            },
+            error: function() {
+                alert( "Request failed, please retry.\nIf problem persists, try again later." );
+            }
+
+        }).done(function() {
+                    $('#product_place').load(href);
+                });
+
+    };
+});
+function load()
+{
+$('#product_place').load($(this).attr('href'));
+return false;
+}
+</script>
+
+<div id="main">
+
+<div id="tabs"  style=" padding-top: 15px; width: 20%;float: left">
+    <ul metal:define-macro="output_list" tal:condition="list" id="navigation" class = "treeview-famfamfam">
+        <li tal:repeat="list_item list" class ="expandable">
+            <a style="font-size:18" href="${baseUrl}${list_item/href}"
+               onclick="$('#product_place').load($(this).attr('href'));
+                return false;"><img tal:condition="list_item/image" tal:attributes="src list_item/image" style="height: 15px"/>${list_item/title}</a>
+
+            <!-- this re-defines list variable
+                 by assigning the next sub-level of the list to it,
+                 and then calls this macro again -->
+            <tal:block tal:define="list list_item/sublist"
+                       metal:use-macro="output_list" />
+        </li>
+    </ul>
+    <!-- macro definition above isn't automatically run,
+     so kick-start the process -->
+    <tal:block metal:use-macro="output_list" />
+</div>
+
+</div>
+
+<div id="product_place" style="display:block;padding-top: 15px;width: 80%;">
+<div href="/products/product/index/id/1/ajax/1">
+</div>
+</div>

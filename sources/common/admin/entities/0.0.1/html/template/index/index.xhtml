@@ -1,0 +1,44 @@
+<script type="text/javascript" src="/media/js/jquery.sha256.js"></script>
+<script type="text/javascript">
+$(function() {
+    $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+});
+</script>
+<script>
+$(function() {
+    $( "#tabs" ).tabs({
+        beforeLoad: function( event, ui ) {
+            ui.jqXHR.error(function() {
+                ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                                "If this wouldn't be a demo." );
+            });
+        }
+    });
+});
+</script>
+<style>
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+</style>
+
+<div id="add_record" class="container">
+    <div id="tabs" style="float: left">
+        <label>Entities:</label>
+        <ul class="nav nav-pills nav-stacked">
+            <li tal:repeat="item entities" style="border-left: solid 1px;border-bottom: solid 1px">
+                <a href="${baseUrl}${item/href}">
+                    <span tal:content="item/title">entities</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<div>
+</div>

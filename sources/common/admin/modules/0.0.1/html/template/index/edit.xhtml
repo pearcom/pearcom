@@ -1,0 +1,134 @@
+<script type="text/javascript">
+    $(function() {
+        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+    });
+$(function() {
+    $( "#tabs" ).tabs({
+        ajaxOptions: { cache: true
+            }
+        ,
+        beforeLoad: function( event, ui ) {
+            ui.jqXHR.error(function() {
+                ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible." );
+            });
+        },
+        load: function(event, ui) {
+            ui.tab.href = "#"+ui.panel.id;
+        }
+    });
+});
+$(document).ready(function() {
+            if($("#location option:selected").val()=='false')
+            {
+                $("#version_ex").show();
+                $("#version").hide();
+            }else
+            {
+                $("#version_ex").hide();
+                $("#version").show();
+            }
+        $("#location").change(function()
+        {
+
+            if($("#location option:selected").val()=='false')
+            {
+                $("#version_ex").show();
+                $("#version").hide();
+            }else
+            {
+                $("#version_ex").hide();
+                $("#version").show();
+            }
+
+        });
+});
+</script>
+<style>
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+</style>
+
+<ol class="breadcrumb">
+<li><a href="${baseUrl}/modules/index">Modules</a></li>
+</ol>
+
+<div class="container">
+<form method="post" role="form">
+<div>
+    <input class="btn btn-success" type="submit" value="Submit"/>
+</div>
+<div id="tabs" class="col-lg-2">
+
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="#general"><span>General</span></a></li>
+        <li tal:condition="not: location"><a href = "${baseUrl}${service}"><span>Service</span></a></li>
+        <li tal:condition="location"><a href = "${baseUrl}${tenants}"><span>Tenants</span></a></li>
+    </ul>
+
+    <div id="general">
+
+        <div class="page-header">
+            <h1>Module: <b  tal:content="name"></b></h1>
+        </div>
+        <div class="form-group">
+            <label for='amount'>Type</label><br></br>
+            <select class="form-control" name="type" >
+
+                <option tal:attributes="selected php:type == 'front'" value="front">Frontend</option>
+                <option tal:attributes="selected php:type == 'mixed'" value="mixed">Administation/Frontend</option>
+                <option tal:attributes="selected php:type == 'service'" value="service">Service</option>
+                <option tal:attributes="selected php:type == 'admin' " value="admin">Administration</option>
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for='location'>Location</label><br></br>
+            <select class="form-control" name="location" id="location">
+
+                <option tal:attributes="selected php:location == true" value="true">Local</option>
+                <option tal:attributes="selected php:location == false" value="false">Serviced</option>
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for='status'>Status</label><br></br>
+            <select class="form-control" name="status" id="status">
+
+                <option tal:attributes="selected php:status == true" value="true">Enabled</option>
+                <option tal:attributes="selected php:status == false" value="false">Disabled</option>
+            </select>
+
+        </div>
+        <div class="form-group">
+
+            <label for='place'>Version</label>${version}
+            <select class="form-control" name="version" id="version" hidden="" >
+                <option  tal:repeat = "item versions" tal:attributes="selected php:version == item; value item"  tal:content="item">version 1</option>
+            </select>
+            <select class="form-control" name="version_ex" id="version_ex" hidden="" >
+                <option  tal:repeat = "item versions_ex" tal:attributes="selected php:version == item; value item"  tal:content="item">version 1</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for='place'>Entities</label><br></br>
+            <table>
+            <tr tal:repeat = "item entities">
+                <td>${item}</td>
+                <td tal:condition="not: location"><a href = "${baseUrl}${sync}">Synchronize</a></td>
+            </tr>
+            </table>
+        </div>
+
+    </div>
+    <div id="fragment-3">
+    </div>
+</div>
+
+</form>
+</div>

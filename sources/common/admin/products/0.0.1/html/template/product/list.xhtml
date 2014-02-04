@@ -1,0 +1,46 @@
+<script>
+    $(function(){
+       $("#all").change(function()
+       {
+           $(':checkbox').attr('checked',  $(this).is(':checked'));
+       })
+    })
+</script>
+<div id="page-container" class="p60 clearfix col-lg-12 ">
+    Products:
+
+    <!-- insert template content, the ZF way -->
+    <a class="btn btn-success" href = "${baseUrl}${add}" style="float: right">Add Product</a>
+    <form method="post" action="/products/product/list">
+    <table class="table table-bordered table-hover tablesorter">
+
+        <tr>
+            <td>Select All</td>
+            <td>Id</td>
+            <td>Title</td>
+            <td>Price</td>
+            <td>Action</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" id = "all"  /></td>
+            <td><input type="text" name = "item_id" value="${filter/item_id}"/></td>
+            <td><input type="text" name = "title" value="${filter/title}"/></td>
+            <td><input type="text" name = "price" value="${filter/price}"/></td>
+            <td><input class="btn btn-default" type="submit" value="Filter"/>
+                <input type="button" class="btn btn-default" value="Export"
+            onclick='$("form").attr("action","/products/product/export");$("form").submit();'/>
+            </td>
+
+        </tr>
+        <tr tal:repeat = "item list">
+           <td><input type="checkbox" tal:attributes ="checked item/checked" name="selection[${item/id}]" value="${item/id}"/></td>
+            <td tal:content="item/id"></td>
+            <td tal:content="item/title"></td>
+            <td tal:content="item/price"></td>
+            <td><a class="btn btn-primary" href = "${baseUrl}${item/edit}">Edit</a>
+                <a  class="btn btn-danger" href = "${baseUrl}${item/delete}">Delete</a></td>
+        </tr>
+    </table>
+
+    </form>
+</div>

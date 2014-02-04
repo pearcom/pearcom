@@ -1,0 +1,26 @@
+<script type="text/javascript" src="/media/js/jquery.sha256.js"></script>
+<div id="add_record">
+<div>
+    <input type='submit' value="Save"></input>
+</div>
+<form id='submit' method="post" onsubmit='$("#password").val($.sha256($("#password").val()));return;'>
+    <div>
+     <label> Last edited </label>
+     <input type="text" name ="username" 	readonly="readonly" tal:attributes="value updated_at" ></input>
+    </div>
+    <div>
+        <label>Username</label>
+        <input type="text" name ="username" tal:attributes="value username" ></input>
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" id="password" name ="password" tal:attributes="value password" ></input>
+    </div>
+    <div  tal:repeat = "item user">
+        <label tal:content="repeat/item/key">Place</label>
+        <input type="text" tal:attributes="name repeat/item/key; value item" ></input>
+    </div><br></br>
+
+</form>
+</div>
+

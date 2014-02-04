@@ -1,0 +1,57 @@
+
+
+        <!-- Fixed navbar -->
+
+<div class="navbar navbar-inverse navbar-top" role="navigation" style="margin-bottom: 0px">
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Welcome <span tal:content="username"></span></a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a tal:condition="logged" href="/user/account/index" title="My Account">My Account</a>
+                <a tal:condition="not: logged" href="/user/index/login" title="Log In">Log In</a></li>
+            <li><a href="/cart" title="My Cart"><span href = "/cart/index/view/ajax/true"></span></a></li>
+            <li><a tal:condition="logged" href="/user/index/logout" title="Logout">Logout</a></li>
+
+        </ul>
+    </div><!--/.nav-collapse -->
+</div>
+</div>
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('#spinner').ajaxStart (function () {
+        $(this).show();
+    }).ajaxStop (function () {
+        $(this).hide();
+    });
+    $.each($('div'),function(index)
+    {
+        href = $(this).attr("href");
+
+        if(href)
+        {
+            $(this).load(href);
+            $(this).removeAttr("href");
+        }
+    });
+    $.each($('span'),function(index)
+    {
+        href = $(this).attr("href");
+
+        if(href)
+        {
+            $(this).load(href);
+            $(this).removeAttr("href");
+        }
+    });
+});
+
+</script>

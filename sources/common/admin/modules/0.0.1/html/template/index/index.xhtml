@@ -1,0 +1,33 @@
+
+<div id="page-container" class="p60 clearfix col-lg-12 ">
+    <div class="page-header">
+        <h1>Modules:</h1>
+    </div>
+    <!-- insert template content, the ZF way -->
+    <a class="btn btn-success" href="${baseUrl}/modules/module/install" style="float: right">Install module</a>
+
+    <table class="table table-hover tablesorter">
+
+        <tr>
+            <td>Name</td>
+            <td>Area</td>
+            <td>Type</td>
+            <td>Version</td>
+            <td>Status</td>
+            <td>Entities</td>
+            <td>Action</td>
+        </tr>
+           <tr tal:repeat = "item module">
+              <td tal:content="item/key"></td>
+              <td tal:content="item/type"></td>
+               <td tal:content="item/local"></td>
+              <td tal:content="item/version"></td>
+               <td tal:content="item/status"></td>
+              <td tal:content="item/entities"></td>
+              <td><a class="btn btn-primary" href = "${baseUrl}${item/edit}">Edit</a>
+                  <a class="btn btn-danger remove" href = "${baseUrl}${item/delete}" >Delete</a></td>
+          </tr>
+      </table>
+
+
+  </div>

@@ -1,0 +1,21 @@
+<div class="inner">
+<div id="page-container" class="clearfix">
+Категории
+<ul>
+    <li  tal:repeat = "list categories">
+        <a tal:condition="list/parent_id" href="${baseUrl}${list/href}">
+            ${list/title}
+        </a>
+    </li>
+</ul>
+</div>
+<div style="padding-bottom: 20px">
+Продукты
+<ul>
+    <li tal:repeat = "list products">
+        <a tal:attributes="title list/title; href list/href" >${list/title}</a>
+    </li>
+</ul>
+</div>
+</div>
+

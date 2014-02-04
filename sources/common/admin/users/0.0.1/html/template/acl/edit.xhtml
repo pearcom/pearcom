@@ -1,0 +1,23 @@
+<script type="text/javascript" src="/media/js/jquery.sha256.js"></script>
+<div id="add_record" class="col-lg-12">
+
+
+<form id='submit' method="post" tal:attributes="action action" role="form">
+    <div class="form-group">
+        <input class="btn btn-success" type='submit' value="Save"></input>
+    </div>
+    <label tal:content="title">Place</label><br/>
+    <div  tal:repeat = "item roles" class="form-group">
+        <!--<label tal:content="access/role">Place</label><br/>
+        <label tal:content="access/controller">Place</label><br/>
+        <label tal:content="access/allowed">Place</label><br/>-->
+        <label tal:content="item/title">Place</label>
+        <select class="form-control" id="allowed" tal:attributes="name item/value;" tal:define="optionValue item/allowed">
+            <option value="1" tal:attributes="selected php: optionValue == 1" >Allow</option>
+            <option value="0" tal:attributes="selected php: optionValue == 0">Deny</option>
+        </select>
+    </div>
+
+</form>
+</div>
+

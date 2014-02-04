@@ -1,0 +1,62 @@
+<style>
+    ul.categories li {
+
+        width: 220px;
+        display: inline-block;
+        vertical-align: top;
+        *display: inline;
+        *zoom: 1;
+    }
+    ul.categories img {
+
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        vertical-align: top;
+        *display: inline;
+        *zoom: 1;
+    }
+    ul.products li {
+
+        width: 160px;
+        display: inline-block;
+        vertical-align: top;
+        *display: inline;
+        *zoom: 1;
+    }
+    ul.products img {
+
+        width: 150px;
+        height: 150px;
+        display: inline-block;
+        vertical-align: top;
+        *display: inline;
+        *zoom: 1;
+    }
+</style>
+<div href="${baseUrl}/catalog/search/index/ajax/true"/>
+
+<div id="page-container" class="p60 clearfix col-lg-12 ">
+<ul class="categories">
+    <li  tal:repeat = "list categories">
+
+        <a href="${baseUrl}${list/href}">
+            <img tal:attributes="src list/image"/>
+            <h4>${list/title}</h4>
+        </a>
+    </li>
+</ul>
+
+<ul class="products">
+    <li  tal:repeat = "list products">
+        <a href="${baseUrl}${list/href}">
+            <img tal:attributes="src list/image"/>
+            <h4>${list/title}</h4>
+            <p>$ ${list/price}</p>
+        </a>
+    </li>
+</ul>
+
+  </div>
+
+

@@ -1,0 +1,67 @@
+<script src="/media/js/lightbox.js"></script>
+<link href="/media/css/lightbox.css" rel="stylesheet" />
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+<div href="${baseUrl}/catalog/search/index/ajax/true"></div>
+<div class="col-md-12">
+
+<div class="thumbnail">
+    <a tal:attributes="href image" rel="lightbox[roadtrip]" >
+        <img class="img-responsive" tal:condition="php: image !=''"  tal:attributes="src image" id="image" style="width: 265px; left: 0px; top: 0px;"/>
+        <img class="img-responsive" tal:condition="php: image ==''"  src="/media/images/no-product-image.jpg" id="image" style="width: 265px; left: 0px; top: 0px;"/>
+    </a>
+    <div class="caption-full">
+        <h4 class="pull-right">$ ${price}</h4>
+        <h4><a href="#">${title}</a></h4>
+        <div class="pull-right">
+            <div href = "${baseUrl}/stock/index/index/id/${id}/ajax/1"></div>
+            <input type="text" style="width: 2.5em !important"  value="1" id="qty" name="qty"/>
+            <a class="btn btn-primary"   name="name" onclick="$.post('${baseUrl}/cart/index/add/id/${id}/qty/'+$('#qty').val()+'/ajax/1', null, function() {
+          $('#cart').load('${baseUrl}/cart/index/view/ajax/1');
+return false;}); return false;">Add to Cart</a>
+        </div>
+        <div id="tabs" >
+            <ul class="nav nav-tabs">
+                <li><a href="#tabs-1">Quick Overview</a></li>
+                <li><a href="#tabs-2">Review</a></li>
+            </ul>
+            <div id="tabs-1">
+                <p>${description}</p>
+            </div>
+            <div id="tabs-2">
+                <div class="well">
+
+                    <div class="text-right">
+                        <a class="btn btn-success">Leave a Review</a>
+                    </div>
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>This product was great in terms of quality. I would definitely buy another!</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ratings">
+        <div href="${baseUrl}/review/rating/index/id/${id}/ajax/1"></div>
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+

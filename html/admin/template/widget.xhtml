@@ -1,0 +1,40 @@
+<div  id="${widgetid}" class="widget" >
+<div  tal:content="structure content" ></div>
+
+<script>
+// Attach a submit handler to the form
+$( "#${widgetid} form" ).submit(function( event ) {
+// Stop form from submitting normally
+    event.preventDefault();
+// Get some values from elements on the page:
+    var $form = $( this );
+    var url = $form.attr( "action" )+"/ajax/true/";
+
+// Send the data using post
+    var posting = $.post( url,$form.serializeArray());
+// Put the results in a div
+    posting.done(function( data ) {
+        var content = $( data);//.find( ".widget" );
+        $( "#${widgetid}").parent().empty().append( content );
+    });
+});
+/*$( '#${widgetid} a.btn').each(function()
+{$(this).click(function(event) {
+// Stop form from submitting normally
+   event.preventDefault();
+// Get some values from elements on the page:
+    var $form = $( this );
+    var url = $form.attr( "href" )+"/ajax/1";
+
+// Send the data using post
+    var posting = $.post( url);
+// Put the results in a div
+    posting.done(function( data ) {
+    var content = $( data);//.find(".widget" );
+        $( "#${widgetid}").parent().empty().append( content );
+    });
+    return false;
+});
+});       */
+</script>
+</div>
