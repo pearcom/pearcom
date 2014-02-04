@@ -25,7 +25,7 @@ function load()
 <div id="tabs"  style=" padding-top: 15px; width: 20%;float: left">
     <ul metal:define-macro="output_list" tal:condition="list" id="navigation" class = "treeview">
         <li tal:repeat="list_item list" class ="expandable">
-            <a href="${baseUrl}${list_item/href}"
+            <a href="${baseUrl}${list_item/href}" class="link"
                onclick="$('#product_place').load($(this).attr('href'));
                 return false;">${list_item/title}</a>
 

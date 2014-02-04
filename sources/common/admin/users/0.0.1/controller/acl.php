@@ -70,7 +70,7 @@ class users_controller_acl extends klug_controller_abstract
 
                 $ar["sublist"] = array();
 
-                $ar["href"] =  "/users/acl/edit/mod/$key/ajax/1";
+                $ar["href"] =  "/users/acl/edit/mod/$key/ajax/true";
                 $location = BP."/sources/".config_configuration::getInstance()->getModuleLocation($key,
                     dispatcher::getInstance()->getStore(),$value['local'])."/controller/";
                 $controllers =array();
@@ -139,8 +139,8 @@ class users_controller_acl extends klug_controller_abstract
                     $acl->save();
                  }
              }
+             $this->_view->set('message',"Access rule saved");
 
-             $this->redirect("/users/acl/index");
          }
 
 
@@ -174,7 +174,13 @@ class users_controller_acl extends klug_controller_abstract
          }
          $this->_view->set('title',$this->getParam("mod")."/". $cont);
          $this->_view->set('roles',$res);
-         $this->_view->set('action',"/users/acl/edit/mod/$mod/cont/$cont/ajax/1");
+         if($cont)
+         {
+         $this->_view->set('action',"/users/acl/edit/mod/$mod/cont/$cont");
+         }else
+         {
+             $this->_view->set('action',"/users/acl/edit/mod/$mod");
+         }
      }
 
     public function deleteAction()

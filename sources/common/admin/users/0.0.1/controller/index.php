@@ -108,11 +108,6 @@ class users_controller_index extends klug_controller_abstract
             $this->_view->set('users',$arr);
             $this->_view->set('filter',array("item_id"=>$item_id,"role"=>$role,"name"=>$name));
         }
-        /* if(klug_registry::isRegistered('session'))
-         {
-          $this->_view->set('title', klug_registry::get('session')->user_name);
-         }*/
-
     }
      public function editAction()
      {
