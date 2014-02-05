@@ -118,6 +118,12 @@ class installer
         $attribute = $acl->getAttribute("allowed");
         $acl->addAttributeOption($attribute,0,"False");
         $acl->addAttributeOption($attribute,1,"True");
+        $acl->load(null);
+        $acl->setData("module","cart");
+        $acl->setData("controller","index");
+        $acl->setData("role","guest");
+        $acl->setData("allowed",1);
+        $acl->save();
         //Page
         $page = $dispatcher->getEntity("page");
         $page->addAttribute("content","text","Content");
