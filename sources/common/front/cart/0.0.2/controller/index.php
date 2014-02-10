@@ -48,45 +48,79 @@
 
         16) Modification of This License. This License is Copyright © 2005 Lawrence Rosen. Permission is granted to copy, distribute, or communicate this License without modification. Nothing in this License permits You to modify this License as applied to the Original Work or to Derivative Works. However, You may modify the text of this License and copy, distribute or communicate your modified version (the "Modified License") and apply it to other original works of authorship subject to the following conditions: (i) You may not indicate in any way that your Modified License is the "Open Software License" or "OSL" and you may not use those names in the name of your Modified License; (ii) You must replace the notice specified in the first paragraph above with the notice "Licensed under <insert your license name here>" or with a notice of your own that is not confusingly similar to the notice in this License; and (iii) You may not claim that your original works are open source software unless your Modified License has been approved by Open Source Initiative (OSI) and You comply with its license review and certification process.
  * User: klug
- * Date: 27.11.12
- * Time: 1:26
+ * Date: 24.11.12
+ * Time: 23:30
  */
-class modules_model_tenant extends klug_model_abstract
+class cart_controller_index extends klug_controller_abstract
 {
-    protected $_entityFieldId = 'id'; // имя первичного ключа в таблице products
-    protected $_attributeTableName = 'tenant_attribute'; // имя таблицы атрибутов
-    protected $_attributeFieldId   = 'id'; // имя первичного ключа в таблице атрибутов
-    protected $_attributeFieldType = 'type'; // имя для поля "type" в таблице атрибутов
-    protected $_attributeFieldName = 'attribute_name'; // имя для поля "name" в таблице атрибутов
-    protected $_entityTableName = 'tenant';
-    protected $_item;
-    protected $_entityTableFields = array("storeid"=>"VARCHAR(50) NULL DEFAULT NULL"
-                                    ,"key"=>"VARCHAR(256) NULL DEFAULT NULL"
-                                    ,"module"=>"VARCHAR(256) NULL DEFAULT NULL"
-                            ,"updated_at"=>"TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    public function indexAction()
+    {
+        $quote = $this->getEntity("quote");
+        $product = $this->getEntity("product");
+        $quote->load();
+        $arr = array();
+        if(!is_array($quote->getData()))
+        {
+            return;
+        }
+        foreach( $quote->getData() as $ar)
+        {
+            $ar["product"]=$product->load($ar["product"])->getData();
+          $arr[] = $ar;
+        }
+        $this->_view->set("products", $arr);
+    }
+    public function addAction()
+    {
+        $quote = $this->getEntity("quote");
+        $quote->load();
+        $quote->addProduct($this->getParam("id"),$this->getParam("qty"));
+    }
+    public function clearAction()
+    {
+        $quote = $this->getEntity("quote");
+        $quote->load();
+        $quote->clearProduct();
+        $this->redirect("/cart");
+    }
+    public function updateAction()
+    {
+        $quote = $this->getEntity("quote");
+        $quote->load();
+        $qty = $this->getParam("qty");
+        $qty = $qty[$this->getParam("id")];
+        if(intval($qty)==0)
+        {
+            $quote->removeProduct($this->getParam("id"));
+            $this->redirect("/cart");
+            return;
+        }
+        $quote->addSetQty($this->getParam("id"),intval($qty));
+        $this->redirect("/cart");
+    }
+    public function removeAction()
+    {
+        $quote = $this->getEntity("quote");
+        $quote->load();
+        $quote->removeProduct($this->getParam("id"));
+        $this->redirect("/cart");
+    }
+    public function viewAction()
+    {
+        $quote = $this->getEntity("quote");
+        $quote->load();
+        $count=0;
+        $products =$quote->getData();
+        if(is_array($products))
+        {
+            foreach( $products as $ar)
+            {
+                $count  = $count+ $ar["qty"];
 
-    public function getByStoreId($storeid)
-    {
-        $select = $this->_entityModel->select()
-            ->from($this->_entityTableName);
-        $select->where("storeid = '$storeid'");
-        $rows = $this->_entityModel->fetchAll($select);
-        foreach($rows as $row)
-        {
-            return clone $this->load($row["id"]);
+            }
         }
-        return null;
+
+        $this->_view->set("count", $count);
     }
-    public function getByStore($storeid,$module)
-    {
-        $select = $this->_entityModel->select()
-            ->from($this->_entityTableName);
-        $select->where("storeid = '$storeid' and module ='$module'");
-        $rows = $this->_entityModel->fetchAll($select);
-        foreach($rows as $row)
-        {
-            return clone $this->load($row["id"]);
-        }
-        return null;
-    }
+
 }

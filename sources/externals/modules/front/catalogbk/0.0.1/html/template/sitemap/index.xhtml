@@ -1,0 +1,20 @@
+<div id="page-container" class="clearfix">
+Categories
+<ul class="categories">
+    <li  tal:repeat = "list categories">
+        <a href="${baseUrl}${list/href}">
+            ${list/title}
+        </a>
+    </li>
+</ul>
+</div>
+<div>
+Products
+<ul class="products">
+    <li class="item" tal:repeat = "list products">
+        <a tal:attributes="title list/title; href list/href" >${list/title}</a>
+    </li>
+</ul>
+</div>
+
+

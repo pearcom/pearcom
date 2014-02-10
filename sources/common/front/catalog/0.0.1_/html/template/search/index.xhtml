@@ -1,0 +1,29 @@
+<div id="hsearch" class="p clearfix content">
+    <form id="search" autocomplete="on" method="get" action = "${baseUrl}/catalog/search/index">
+        <div>
+            <input  class="search replace" type="text" value="" size="28" maxlength="140" tabindex="1" placeholder="search" name="q" autocomplete="off" style="display: inline-block; width: 600px; max-width: 600px;margin: 20px"></input>
+            <input type="submit" class="btn" value="Search"/>
+        </div>
+    </form>
+    <p tal:condition = "query">Result for:</p><p tal:condition = "query" tal:content="query">Query body</p>
+    <div>
+        <ul class="products">
+            <li class="item" tal:repeat = "list products">
+                <a class="product-image" tal:attributes="title list/title; href list/href" ><img width="135" height="135" alt="Coalesce: Functioning On Impatience T-Shirt" tal:attributes="src list/image; alt list/title"/></a>
+                <h2 class="product-name"><a tal:attributes="title list/title; href list/href" >${list/title}</a></h2>
+                <div class="ratings">
+                    <div class="rating-box">
+                        <div style="width:71%" class="rating"></div>
+                    </div>
+                    <span class="amount">6 Review(s)</span>
+                </div>
+                <div class="price-box">
+                    <span class="price">$ ${list/price}</span>
+                </div>
+                <div class="actions">
+                    <input  class="btn" title="Add to Cart" type="button" value="Add to Cart"/>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

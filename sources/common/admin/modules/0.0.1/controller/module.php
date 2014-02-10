@@ -114,11 +114,11 @@ class modules_controller_module extends modules_controller_abstract
             {
                 if($us->getData("storeid")==$tenant->getData("storeid"))
                 {
-                    $ar["id"] =  $us->getData("id");
+                    $ar["id"] =  $tenant->getData("id");
                     $ar["username"] =  $us->getData("username");
                     $ar["email"] =  $us->getData("email");
                     $ar["checked"] =  1;
-                    $ar["unassign"] =  "/modules/module/unassign/id/".$ar["id"];
+                    $ar["unassign"] =  "/modules/module/unassign/id/".$ar["id"]."/module/$id";
                     $arr[]=$ar;
                 }
             }
@@ -131,15 +131,11 @@ class modules_controller_module extends modules_controller_abstract
     public function unassignAction()
     {
         $id = $this->getParam("id");
+        $module = $this->getParam("module");
         $model = $this->getEntity("tenant");
-        $user =  $this->getEntity("user");
-        if($this->_request->isPost())
-        {
-            $user_id = $this->getParam("user");
-            $user->load($user_id);
-            $model->load();
-            $model->delete();
-        }
+        $model->load($id);
+        $model->delete();
+
         $this->redirect("/modules");
     }
     public function assignAction()
@@ -169,6 +165,10 @@ class modules_controller_module extends modules_controller_abstract
             foreach($tenants as $tenant)
             {
                 if($us->getData("storeid")==$tenant->getData("storeid"))
+                {
+                    $diplay = false;
+                }
+                if($us->getData("storeid")==null)
                 {
                     $diplay = false;
                 }

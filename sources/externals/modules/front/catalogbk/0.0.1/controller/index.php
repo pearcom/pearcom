@@ -48,45 +48,53 @@
 
         16) Modification of This License. This License is Copyright © 2005 Lawrence Rosen. Permission is granted to copy, distribute, or communicate this License without modification. Nothing in this License permits You to modify this License as applied to the Original Work or to Derivative Works. However, You may modify the text of this License and copy, distribute or communicate your modified version (the "Modified License") and apply it to other original works of authorship subject to the following conditions: (i) You may not indicate in any way that your Modified License is the "Open Software License" or "OSL" and you may not use those names in the name of your Modified License; (ii) You must replace the notice specified in the first paragraph above with the notice "Licensed under <insert your license name here>" or with a notice of your own that is not confusingly similar to the notice in this License; and (iii) You may not claim that your original works are open source software unless your Modified License has been approved by Open Source Initiative (OSI) and You comply with its license review and certification process.
  * User: klug
- * Date: 27.11.12
- * Time: 1:26
+ * Date: 24.11.12
+ * Time: 23:30
  */
-class modules_model_tenant extends klug_model_abstract
+class catalog_controller_index extends klug_controller_abstract
 {
-    protected $_entityFieldId = 'id'; // имя первичного ключа в таблице products
-    protected $_attributeTableName = 'tenant_attribute'; // имя таблицы атрибутов
-    protected $_attributeFieldId   = 'id'; // имя первичного ключа в таблице атрибутов
-    protected $_attributeFieldType = 'type'; // имя для поля "type" в таблице атрибутов
-    protected $_attributeFieldName = 'attribute_name'; // имя для поля "name" в таблице атрибутов
-    protected $_entityTableName = 'tenant';
-    protected $_item;
-    protected $_entityTableFields = array("storeid"=>"VARCHAR(50) NULL DEFAULT NULL"
-                                    ,"key"=>"VARCHAR(256) NULL DEFAULT NULL"
-                                    ,"module"=>"VARCHAR(256) NULL DEFAULT NULL"
-                            ,"updated_at"=>"TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+    public function indexAction()
+    {
+        $category = $this->getEntity("category");
 
-    public function getByStoreId($storeid)
-    {
-        $select = $this->_entityModel->select()
-            ->from($this->_entityTableName);
-        $select->where("storeid = '$storeid'");
-        $rows = $this->_entityModel->fetchAll($select);
-        foreach($rows as $row)
+        $id = $this->getParam("id");
+        $id = htmlspecialchars($id);
+        if($id==null)
         {
-            return clone $this->load($row["id"]);
+            $id=1;
         }
-        return null;
-    }
-    public function getByStore($storeid,$module)
-    {
-        $select = $this->_entityModel->select()
-            ->from($this->_entityTableName);
-        $select->where("storeid = '$storeid' and module ='$module'");
-        $rows = $this->_entityModel->fetchAll($select);
-        foreach($rows as $row)
+        $arr=array();
+        foreach($category->loadAllArray("parent_id = '$id'",null,20,0) as $us)
         {
-            return clone $this->load($row["id"]);
+            /*  $ar["id"] =  $us->getData("id");
+              $ar["title"] =  $us->getData("title");
+              $ar["image"] =  $us->getData("image");*/
+            $ar =  $us;
+            $ar["href"] ="/".$us["rewrite"].".html";
+            if($us["rewrite"]=="")
+            {
+                $ar["href"] =  "/catalog/index/index/id/".$us["id"];
+            }
+            $arr[]=$ar;
+
         }
-        return null;
+        $this->_view->set('categories',$arr);
+        $arr=array();
+        $product = $this->getEntity("product");
+        foreach($product->loadAllArray("category_id = '$id'",null,20,0) as $us)
+        {
+            $ar =  $us;
+            $ar["href"] ="/".$us["rewrite"].".html";
+            if($us["rewrite"]=="")
+            {
+                $ar["href"] =  "/catalog/product/index/id/".$us["id"];
+            }
+            $arr[]=$ar;
+
+        }
+
+        $this->_view->set('products',$arr);
     }
+
+
 }

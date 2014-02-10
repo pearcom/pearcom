@@ -1,0 +1,32 @@
+<div class="inner">
+    <form>
+        <input type='submit' value="Checkout"></input>
+    </form>
+    <table tal:condition = "exists: products" class="rounded-corner">
+        <tr class="item" tal:repeat="list products">
+            <td>
+            <h2 class="product-name">${list/product/title}</h2>
+            <div phptal:cache="25m per list/product/id" href="${baseUrl}/review/rating/index/id/${list/product/id}/ajax/1">&nbsp;</div>
+            </td>
+            <td>
+                <div class="price-box"><span class="price">$ ${list/product/price}</span></div>
+            </td>
+            <form action="/cart/index/update/id/${list/product/id}" method="post">
+            <td>
+                <input name="qty[${list/product/id}]" value="${list/qty}"/>
+            </td>
+            <td>
+                <!--<a  class="btn" href="/cart/index/update/id/${list/product/id}">update</a>-->
+                <input type='submit' value="Update"></input>
+            </td>
+            </form>
+            <td>
+               <a  class="btn" href="/cart/index/remove/id/${list/product/id}">remove</a>
+            </td>
+        </tr>
+    </table>
+    <a class="btn" href="/cart/index/clear">Clear cart</a>
+    <div tal:condition = "not: exists: products">
+        Cart empty
+    </div>
+</div>

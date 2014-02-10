@@ -1,0 +1,43 @@
+<div class="clearfix inner" id="page-container">
+
+    Serviced
+    <ul class="categories">
+        <li tal:repeat="list categories">
+            <div class="img-box">
+                <a href="${baseUrl}${list/href}">
+                    <img tal:attributes="src list/image" alt="${list/title}" />
+                </a>
+                <div><h4>${list/title}</h4></div>
+            </div>
+
+        </li>
+    </ul>
+
+    <div class="products">
+        <div tal:repeat="list products">
+            <div class="product">
+                <div class="img-box">
+                    <a class="product-image" tal:attributes="title list/title; href list/href" tal:define="image list/image">
+                        <img tal:condition="php: image !=''" alt="${list/title}" height="135" tal:attributes="src image; alt list/title" width="135" />
+                        <img tal:condition="php: image ==''" alt="${list/title}" height="135" src="/media/images/no-product-image.jpg" width="135" />
+                    </a>
+                    <div style="text-align: center; margin: 5px">
+                        <input class="btn" title="Add to Cart" type="button" value="Заказать"
+                               onclick="$.post('${baseUrl}/cart/index/add/id/${list/id}/qty/1/ajax/1', null, function() {
+          $('#cart').load('${baseUrl}/cart/index/view/ajax/1');
+}); return false;"/>
+                    </div>
+                </div>
+                <div class="pr-entry">
+                    <h4>${list/title}</h4>
+                    <div phptal:cache="25m per list/id" href="${baseUrl}/review/rating/index/id/${list/id}/ajax/1">&nbsp;</div>
+                    <span class="pr-number">${list/id}</span>
+                    <p>${list/description}</p>
+                    <span class="pr-price"><span></span>${list/price}грн.</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

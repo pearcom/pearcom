@@ -1,0 +1,34 @@
+
+<div id="page-container" class="p60 clearfix col-lg-12 ">
+    Modules:
+
+    <!-- insert template content, the ZF way -->
+    <a href="/modules/module/add" style="float: right">Install module</a>
+
+    <table class = "rounded-corner">
+
+        <tr>
+            <!--     <td tal:content = "id"> id </td>
+               <td tal:content = "Name">Name</td>
+               <td tal:content = "LastName">Last Name</td>
+               <td tal:content = "email">Email</td>
+               <td tal:content = "Status">Status</td>
+               <td tal:content = "Action">Action</td>
+                            -->
+            <td>Name</td>
+            <td>Area</td>
+            <td>Type</td>
+            <td>Version</td>
+            <td>Entities</td>
+            <td>Action</td>
+        </tr>
+        <tr tal:repeat = "item module">
+            <td tal:content="item/id"></td>
+          <td tal:content="item/title"></td>
+            <td tal:content="item/image"></td>
+
+        </tr>
+    </table>
+
+
+</div>
