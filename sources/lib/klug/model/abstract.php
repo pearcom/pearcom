@@ -244,6 +244,7 @@ class klug_model_abstract extends Eav
             {
                 foreach($name as $key=>$value)
                 {
+
                     if(isset($this->_item->$key))
                     {
                      $this->_item->$key = $value;

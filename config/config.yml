@@ -11,6 +11,7 @@ stores:
         homepage: home
         cache: 1
         session: 3600
+        access_log: true
         extensions: 
             header: 
                 local: 1
@@ -78,6 +79,8 @@ stores:
                 type: admin
                 version: 0.0.1
                 status: 1
+                entities:
+                    request: request
             orders: 
                 local: 1
                 type: admin
@@ -153,6 +156,7 @@ stores:
         fronts: https://service.com/ru
         share_db: store1
         skin: rus
+        access_log: true
         extensions: 
             modules: 
                 local: 1
@@ -173,6 +177,13 @@ stores:
                 entities: 
                     product: product
                 id: products
+            dashboard:
+                local: 1
+                type: admin
+                version: 0.0.1
+                status: 1
+                entities:
+                    request: request
             users: 
                 local: 1
                 type: admin
